@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Reiteration</title>
+<link rel="icon" href="img/logo.jpg">
 <style>
 @font-face{font-family:"IM Fell DW Pica";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/fell-regular.woff2) format("woff2")}
 @font-face{font-family:"IM Fell DW Pica";font-style:italic;font-weight:400;font-display:swap;src:url(fonts/fell-italic.woff2) format("woff2")}
@@ -13,14 +14,18 @@ body{margin:0;background:transparent;color:var(--fg);font:17px/1.65 var(--f);ove
 ::selection{background:var(--fg);color:var(--bg)}
 a{color:inherit;text-decoration:none;border-bottom:1px solid var(--dim)}
 a:hover{border-color:var(--fg)}
-#bg{position:fixed;inset:-4%;z-index:-3;background:url(img/bg.jpg) center/cover;filter:grayscale(1) brightness(.4) blur(10px)}
+#bg{position:fixed;inset:-4%;z-index:-3;background:url(img/bg.jpg) center/cover;filter:grayscale(1) brightness(.4)}
 .scan{position:fixed;inset:0;pointer-events:none;z-index:-2;opacity:calc(var(--d)*.5);background:repeating-linear-gradient(0deg,rgba(0,0,0,.55) 0 1px,transparent 1px 3px)}
 .grain{position:fixed;inset:-50%;pointer-events:none;z-index:9;opacity:.2;mix-blend-mode:overlay;animation:j .9s steps(6) infinite;
 background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 1.4 0 0 0 -.2'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>")}
 @keyframes j{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
 main{max-width:1400px;margin:0 auto;padding:0 5vw 12vh}
-.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:8vh}
-h1{font:italic 400 clamp(64px,16vw,230px)/.85 var(--f);letter-spacing:-.04em;margin:0;filter:blur(max(0px,calc(4px - var(--d)*60px)))}
+.hero{padding-top:clamp(28px,7vh,80px)}
+.brand{display:flex;align-items:center;flex-wrap:wrap;gap:clamp(12px,2.5vw,36px)}
+.logo{display:block;height:clamp(84px,13vw,190px);width:auto;filter:grayscale(1) contrast(1.1);
+  -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 40%,rgba(0,0,0,.55) 72%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 40%,rgba(0,0,0,.55) 72%,transparent 100%)}
+h1{font:italic 400 clamp(64px,16vw,230px)/.85 var(--f);letter-spacing:-.04em;margin:0}
+.hero+section{margin-top:12vh}
 .sub,.lab{color:var(--dim);letter-spacing:.3em;text-transform:uppercase;font-size:13px}
 .sub{margin-top:2rem}
 .lab{margin-bottom:1.5rem}
@@ -31,6 +36,22 @@ section{margin-top:18vh}
 .ph{margin:0 0 8vh;flex:0 0 auto;width:var(--w,30%);margin-left:var(--ml,0);margin-top:var(--mt,0);overflow:hidden;will-change:transform}
 .ph.wide{width:100%;margin-left:0}
 .ph img{display:block;width:100%;height:auto;cursor:zoom-in;filter:grayscale(1) brightness(var(--b,.5));transition:filter .6s,transform .8s}
+/* soft feathered edges: the photo dissolves into the background, plus a vignette inside */
+.ph,.org{--fe:17%;position:relative;
+  -webkit-mask-image:linear-gradient(90deg,transparent,rgba(0,0,0,.35) calc(var(--fe)*.3),rgba(0,0,0,.8) calc(var(--fe)*.65),#000 var(--fe),#000 calc(100% - var(--fe)),rgba(0,0,0,.8) calc(100% - var(--fe)*.65),rgba(0,0,0,.35) calc(100% - var(--fe)*.3),transparent),linear-gradient(180deg,transparent,rgba(0,0,0,.35) calc(var(--fe)*.3),rgba(0,0,0,.8) calc(var(--fe)*.65),#000 var(--fe),#000 calc(100% - var(--fe)),rgba(0,0,0,.8) calc(100% - var(--fe)*.65),rgba(0,0,0,.35) calc(100% - var(--fe)*.3),transparent);
+  -webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,rgba(0,0,0,.35) calc(var(--fe)*.3),rgba(0,0,0,.8) calc(var(--fe)*.65),#000 var(--fe),#000 calc(100% - var(--fe)),rgba(0,0,0,.8) calc(100% - var(--fe)*.65),rgba(0,0,0,.35) calc(100% - var(--fe)*.3),transparent),linear-gradient(180deg,transparent,rgba(0,0,0,.35) calc(var(--fe)*.3),rgba(0,0,0,.8) calc(var(--fe)*.65),#000 var(--fe),#000 calc(100% - var(--fe)),rgba(0,0,0,.8) calc(100% - var(--fe)*.65),rgba(0,0,0,.35) calc(100% - var(--fe)*.3),transparent);mask-composite:intersect}
+.ph::after,.org::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 75% 75% at 50% 50%,transparent 45%,rgba(0,0,0,.55) 100%)}
+.org{--fe:7%}.org::after{background:radial-gradient(ellipse 80% 80% at 50% 50%,transparent 60%,rgba(0,0,0,.4) 100%)}
+.organ .lab span{letter-spacing:.15em;text-transform:none;font-style:italic}
+.org{width:min(100%,520px);margin-left:8%}
+.org img{display:block;width:100%;height:auto;filter:brightness(.82)}
+.org svg{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.org polygon{fill:#fff;fill-opacity:0;cursor:pointer;outline:none;transition:fill-opacity .4s}
+.org polygon:hover,.org polygon:focus-visible{fill-opacity:.07}
+.org polygon.on{animation:breathe 2.4s ease-in-out infinite}
+@keyframes breathe{0%,100%{fill-opacity:.14}50%{fill-opacity:.3}}
+.notes{margin-top:1rem;min-height:1.6em;color:var(--dim);letter-spacing:.3em;font-size:13px;text-transform:uppercase}
+#trail{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:35}
 .ph img:hover{filter:grayscale(1) brightness(1.1);transform:scale(1.03)}
 .live ul{list-style:none;margin:0;padding:0;max-width:900px}
 .live li{display:flex;gap:2rem;flex-wrap:wrap;justify-content:space-between;align-items:baseline;border-top:1px solid #333;padding:1.2rem 0;font:italic 400 clamp(24px,3.6vw,48px)/1.2 var(--f);text-shadow:0 0 10px #000}
@@ -57,14 +78,14 @@ html{scroll-behavior:smooth}@media(prefers-reduced-motion:reduce){html{scroll-be
 #lb button:hover{opacity:1}
 #lbp{left:0;top:50%}#lbn{right:0;top:50%}#lbx{right:0;top:env(safe-area-inset-top,0px)}
 #lbc{position:absolute;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);font-size:13px;letter-spacing:.2em;color:var(--dim)}
-@media(max-width:700px){.ph{width:calc(50% - 1vw)!important;margin-left:0!important;margin-top:0!important}.ph.wide{width:100%!important}}
+@media(max-width:700px){.org{margin-left:0}.ph{width:calc(50% - 1vw)!important;margin-left:0!important;margin-top:0!important}.ph.wide{width:100%!important}}
 </style>
 </head>
 <body>
 <div id="bg"></div><div class="scan"></div><div class="grain"></div>
 <main>
   <header class="hero">
-    <h1 data-r>Reiteration</h1>
+    <div class="brand"><img class="logo" src="img/logo.jpg" alt="Reiteration logo"><h1 data-r>Reiteration</h1></div>
     <div class="sub">composer &nbsp;/&nbsp; berlin</div>
   </header>
 
@@ -74,10 +95,29 @@ html{scroll-behavior:smooth}@media(prefers-reduced-motion:reduce){html{scroll-be
     <p>Recently his focus has turned to multichannel and ambisonic systems: spatial pieces in which live instruments and recorded sound share a dome, and works built from close recordings of the individual pipes of the 1457 Rysum organ, lifted out of their church and placed in a synthetic space. Grief, death and religion return again and again, along with one question: what remains of an instrument once it has left its room?</p>
   </section>
 
+  <section class="organ" id="organ">
+    <div class="lab">pipes <span>· touch a pipe to let it sound, touch again to silence it</span></div>
+    <div class="org">
+      <img src="img/organpipes_0005_web.jpg" width="1100" height="1617" alt="eleven organ pipes, from longest to shortest" loading="lazy" decoding="async">
+      <svg viewBox="0 0 1000 1470" preserveAspectRatio="none" aria-label="playable pipes">
+        <polygon points="34,18 163,18 131,1448 42,1448"/>
+        <polygon points="162,69 279,69 223,1448 131,1448"/>
+        <polygon points="276,129 377,129 315,1448 223,1448"/>
+        <polygon points="376,157 476,157 411,1448 315,1448"/>
+        <polygon points="474,195 556,195 508,1448 411,1448"/>
+        <polygon points="554,232 641,232 591,1448 508,1448"/>
+        <polygon points="639,273 736,273 663,1448 591,1448"/>
+        <polygon points="730,379 796,379 736,1448 663,1448"/>
+        <polygon points="793,435 870,435 800,1448 736,1448"/>
+        <polygon points="867,482 937,482 862,1448 800,1448"/>
+        <polygon points="935,507 996,507 933,1448 862,1448"/>
+      </svg>
+    </div>
+    <div class="notes" id="notes" aria-live="polite"></div>
+  </section>
+
   <section class="gal" aria-label="photographs"><figure class="ph"><img alt="photograph" src="img/photo-01.jpg" width="869" height="1300" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-02.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-03.jpg" width="867" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-04.jpg" width="1500" height="999" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-05.jpg" width="1500" height="1003" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-06.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-07.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-08.jpg" width="1500" height="999" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-09.jpg" width="869" height="1300" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-10.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-11.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-12.jpg" width="1500" height="999" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-13.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-14.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-15.jpg" width="915" height="1300" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-16.jpg" width="1500" height="1003" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-17.jpg" width="865" height="1300" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-18.jpg" width="1500" height="999" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-19.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-20.jpg" width="869" height="1300" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-21.jpg" width="1080" height="719" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-22.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-23.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-24.jpg" width="1500" height="999" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-25.jpg" width="1500" height="999" loading="lazy" decoding="async"></figure></section>
-  
-  <link rel="icon" href="img/logo.png">
-  
+
   <section class="live" id="live">
     <div class="lab">live</div>
     <ul>
@@ -98,6 +138,7 @@ html{scroll-behavior:smooth}@media(prefers-reduced-motion:reduce){html{scroll-be
 <nav id="nav" aria-label="quick links"><a href="#live">live</a><a href="#contact">contact</a></nav>
 <button id="snd" aria-pressed="false">◌ listen <small>(headphones)</small></button>
 <audio id="au" loop preload="none" src="audio/orgel.mp3"></audio>
+<canvas id="trail" aria-hidden="true"></canvas>
 <script>
 const $=id=>document.getElementById(id),R=document.documentElement,G="▓▒░01/\\|·";
 document.querySelectorAll(".m").forEach(a=>{const e=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+e;a.textContent=e});
@@ -113,8 +154,8 @@ figs.forEach((f,i)=>{const im=f.firstElementChild,land=+im.getAttribute("width")
     f.style.setProperty("--mt",pick([0,4,9,14])+"vh")}
   f._s=rm?0:rd()*.14-.04;f._y=0});
 function frame(){tick=false;const vh=innerHeight,m=R.scrollHeight-vh,d=Math.min(1,Math.max(0,scrollY/Math.max(1,m)));
-  if(Math.abs(d-last)>=.004){last=d;R.style.setProperty("--d",d);const k=1-Math.min(1,d*1.6);
-    bg.style.filter=`grayscale(1) brightness(${.4+d*.1}) contrast(${1+d*.9}) blur(${(k*10).toFixed(1)}px)`}
+  if(Math.abs(d-last)>=.004){last=d;R.style.setProperty("--d",d);
+    bg.style.filter=`grayscale(1) brightness(${.4+d*.1}) contrast(${1+d*.9})`}
   for(const f of figs){const r=f.getBoundingClientRect(),c=r.top+r.height/2-f._y,off=c-vh/2;
     if(Math.abs(off)>vh*1.6)continue;
     const y=-off*f._s;f._y=y;f.style.transform=`translateY(${y.toFixed(1)}px)`;
@@ -129,7 +170,7 @@ document.querySelectorAll("[data-r]").forEach(el=>{const o=el.textContent;let t;
 const ph=[...document.querySelectorAll(".ph img")],lb=$("lb"),li=$("lbi");let ci=0;
 function show(i){ci=(i+ph.length)%ph.length;li.src=ph[ci].src;lb.classList.remove("z");li.style.transformOrigin="50% 50%";$("lbc").textContent=(ci+1)+" / "+ph.length;lb.hidden=false;document.body.style.overflow="hidden"}
 function shut(){lb.hidden=true;document.body.style.overflow=""}
-ph.forEach((im,i)=>im.onclick=()=>show(i));
+ph.forEach((im,i)=>im.onclick=()=>{show(i);Organ.once(i%Organ.n)});
 $("lbx").onclick=shut;$("lbp").onclick=()=>show(ci-1);$("lbn").onclick=()=>show(ci+1);
 lb.onclick=e=>{if(e.target===lb)shut()};
 li.onclick=()=>lb.classList.toggle("z");
@@ -143,6 +184,95 @@ $("bcb").onclick=function(){const f=document.createElement("iframe");f.src="http
 document.querySelectorAll("#nav a").forEach(a=>a.onclick=e=>{e.preventDefault();document.querySelector(a.getAttribute("href")).scrollIntoView({behavior:rm?"auto":"smooth",block:"start"})});
 const au=$("au"),sb=$("snd");
 sb.onclick=()=>{if(au.paused){au.play().catch(()=>{});sb.firstChild.textContent="● listening ";sb.setAttribute("aria-pressed","true")}else{au.pause();sb.firstChild.textContent="◌ listen ";sb.setAttribute("aria-pressed","false")}};
+
+/* ---------- PIPES ----------
+   One sample per pipe, left (longest, lowest) to right (shortest, highest).
+   hz = pitch shown under the organ, ls/le = where the held part of the note starts/ends (seconds, used for the loop),
+   gain = level match between the recordings. If a file is missing, a soft synthesized tone at hz stands in.
+   Every time a pipe sounds it gets a random place in the stereo field and a random amount and size of reverb. */
+const PIPES=[
+  {file:"audio/pipes/pipe-01.wav",hz:198.7,ls:0.45,le:4.25,gain:0.63},
+  {file:"audio/pipes/pipe-02.wav",hz:222.3,ls:0.35,le:4.05,gain:0.89},
+  {file:"audio/pipes/pipe-03.wav",hz:248.6,ls:0.35,le:4.9, gain:1.79},
+  {file:"audio/pipes/pipe-04.wav",hz:266.9,ls:0.5, le:4.25,gain:1.16},
+  {file:"audio/pipes/pipe-05.wav",hz:318.7,ls:0.4, le:4.15,gain:0.62},
+  {file:"audio/pipes/pipe-06.wav",hz:355.9,ls:0.35,le:4.55,gain:0.6},
+  {file:"audio/pipes/pipe-07.wav",hz:398.0,ls:0.35,le:3.75,gain:0.6},
+  {file:"audio/pipes/pipe-08.wav",hz:444.7,ls:0.5, le:3.65,gain:0.67},
+  {file:"audio/pipes/pipe-09.wav",hz:475.7,ls:0.35,le:4.2, gain:0.73},
+  {file:"audio/pipes/pipe-10.wav",hz:498.0,ls:0.35,le:3.85,gain:0.76},
+  {file:"audio/pipes/pipe-11.wav",hz:636.9,ls:0.35,le:4.35,gain:1.15}];
+PIPES.forEach(p=>p.note=Math.round(p.hz)+" Hz");
+const Organ=(()=>{
+  let ac,out,rooms;const buf=[],live={},local=location.protocol==="file:";
+  /* three synthetic rooms: small chamber, hall, stone church */
+  function room(sec,dark){const n=Math.floor(ac.sampleRate*sec),b=ac.createBuffer(2,n,ac.sampleRate);
+    for(let c=0;c<2;c++){const d=b.getChannelData(c);let lp=0;
+      for(let k=0;k<n;k++){const t=k/n,a=Math.min(1,k/(ac.sampleRate*.012)),f=.85-dark*t*.75;lp+=((Math.random()*2-1)-lp)*f;d[k]=lp*a*Math.pow(1-t,2.2)*Math.exp(-t*3)}
+      let e=0;for(let k=0;k<n;k++)e+=d[k]*d[k];e=1/Math.sqrt(e);for(let k=0;k<n;k++)d[k]*=e}
+    const cv=ac.createConvolver();cv.normalize=false;cv.buffer=b;const g=ac.createGain();g.gain.value=1;cv.connect(g);g.connect(out);return cv}
+  function ctx(){if(!ac){ac=new(window.AudioContext||window.webkitAudioContext)();out=ac.createGain();out.gain.value=.7;
+      const c=ac.createDynamicsCompressor();c.threshold.value=-14;c.ratio.value=4;out.connect(c);c.connect(ac.destination);
+      rooms=[room(1.4,.3),room(3.6,.6),room(7.5,.85)]}
+    if(ac.state==="suspended")ac.resume();return ac}
+  /* buf[i]: undefined = not tried, Promise = loading, AudioBuffer = ok, "el" = use <audio> (file://), null = synth */
+  function load(i){if(buf[i]!==undefined)return Promise.resolve(buf[i]);
+    if(local)return buf[i]=new Promise(r=>{const a=new Audio();a.preload="auto";a.oncanplaythrough=()=>{a.oncanplaythrough=null;r(buf[i]="el")};a.onerror=()=>r(buf[i]=null);a.src=PIPES[i].file});
+    return buf[i]=fetch(PIPES[i].file).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).then(b=>new Promise((ok,no)=>ctx().decodeAudioData(b,ok,no)))
+      .then(b=>buf[i]=b).catch(()=>buf[i]=null)}
+  const env=(g,t,to,dur)=>{g.gain.cancelScheduledValues(t);g.gain.setValueAtTime(g.gain.value,t);g.gain.linearRampToValueAtTime(to,t+dur)};
+  /* random place: pan -0.9…0.9, a random room, wet 5–85 % */
+  function place(g){const pan=Math.random()*1.8-.9,wet=.05+Math.pow(Math.random(),1.3)*.8;let p;
+    if(ac.createStereoPanner){p=ac.createStereoPanner();p.pan.value=pan}else{p=ac.createPanner();p.panningModel="equalpower";p.setPosition(pan,0,1-Math.abs(pan))}
+    const dry=ac.createGain(),send=ac.createGain();dry.gain.value=1-wet*.55;send.gain.value=wet;
+    g.connect(p);p.connect(dry);dry.connect(out);p.connect(send);send.connect(rooms[Math.random()*rooms.length|0])}
+  /* synthesized flue pipe: a few soft harmonics plus a little wind */
+  function synth(i,g){const t=ac.currentTime,o=ac.createOscillator(),w=ac.createPeriodicWave(new Float32Array([0,0,0,0,0,0]),new Float32Array([0,1,.42,.2,.09,.05]));
+    o.setPeriodicWave(w);o.frequency.value=PIPES[i].hz;const lp=ac.createBiquadFilter();lp.frequency.value=PIPES[i].hz*5;
+    const n=ac.createBufferSource(),nb=ac.createBuffer(1,ac.sampleRate,ac.sampleRate),d=nb.getChannelData(0);for(let k=0;k<d.length;k++)d[k]=Math.random()*2-1;
+    n.buffer=nb;n.loop=true;const bp=ac.createBiquadFilter();bp.type="bandpass";bp.frequency.value=PIPES[i].hz*2;bp.Q.value=2;const ng=ac.createGain();ng.gain.value=.05;
+    o.connect(lp);lp.connect(g);n.connect(bp);bp.connect(ng);ng.connect(g);o.start(t);n.start(t);return[o,n]}
+  /* sample loop: plays the attack once, then repeats the held part with short crossfades so there is no click */
+  function looper(i,b,g){const d=b.duration,P=PIPES[i],ls=Math.min(P.ls??.5,d*.4),le=Math.min(P.le??d-.35,d),xf=Math.min(.3,(le-ls)/3),srcs=[];
+    let T=ac.currentTime;const seg=(off,len,fadeIn)=>{const s=ac.createBufferSource(),sg=ac.createGain();s.buffer=b;s.connect(sg);sg.connect(g);
+      sg.gain.setValueAtTime(fadeIn?0:1,T);if(fadeIn)sg.gain.linearRampToValueAtTime(1,T+xf);
+      sg.gain.setValueAtTime(1,T+len-xf);sg.gain.linearRampToValueAtTime(0,T+len);s.start(T,off,len);srcs.push(s);
+      s.onended=()=>srcs.splice(srcs.indexOf(s),1);T+=len-xf};
+    seg(0,le,false);const iv=setInterval(()=>{while(T<ac.currentTime+1.2)seg(ls,le-ls,true)},250);
+    return{stop(){clearInterval(iv);srcs.slice().forEach(s=>{try{s.stop(ac.currentTime+.6)}catch(e){}})}}}
+  function elVoice(i){const a=new Audio(PIPES[i].file);a.loop=true;a.volume=0;a.play().catch(()=>{});let v=0;const up=setInterval(()=>{v=Math.min(1,v+.08);a.volume=v;if(v>=1)clearInterval(up)},30);
+    return{stop(){clearInterval(up);const dn=setInterval(()=>{v=Math.max(0,v-.06);a.volume=v;if(!v){clearInterval(dn);a.pause()}},30)}}}
+  async function voice(i,level){ctx();const b=await load(i);
+    if(b==="el")return elVoice(i);
+    const g=ac.createGain(),to=level*(b?PIPES[i].gain||1:1);g.gain.value=0;place(g);env(g,ac.currentTime,to,.08);
+    let h;if(b){h=looper(i,b,g)}else{const n=synth(i,g);h={stop(){n.forEach(x=>x.stop(ac.currentTime+.6))}}}
+    return{stop(){if(ac)env(g,ac.currentTime,0,.5);h.stop()}}}
+  return{n:PIPES.length,
+    async toggle(i){if(live[i]){const v=live[i];live[i]=null;(await v).stop();return false}
+      live[i]=voice(i,.55);return true},
+    async once(i){const v=await voice(i,.4);setTimeout(()=>v.stop(),2200)},
+    preload(){PIPES.forEach((_,i)=>load(i))}}})();
+const polys=[...document.querySelectorAll(".org polygon")],notes=$("notes");
+const showNotes=()=>{notes.textContent=polys.map((p,i)=>p.classList.contains("on")?PIPES[i].note:"").filter(Boolean).join("  ·  ")};
+polys.forEach((p,i)=>{p.setAttribute("tabindex","0");p.setAttribute("role","button");p.setAttribute("aria-label","pipe "+(i+1)+", "+PIPES[i].note);p.setAttribute("aria-pressed","false");
+  const hit=async()=>{const on=!p.classList.contains("on");p.classList.toggle("on",on);p.setAttribute("aria-pressed",on);showNotes();await Organ.toggle(i)};
+  p.addEventListener("click",hit);p.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();hit()}})});
+addEventListener("pointerdown",()=>Organ.preload(),{once:true});
+
+/* ---------- GRAIN TRAIL: the cursor leaves a fading smear of grain ---------- */
+(()=>{const cv=$("trail"),c=cv.getContext("2d");let pts=[],dpr=1,run=false,lx=null,ly=null;
+  const size=()=>{dpr=Math.min(2,devicePixelRatio||1);cv.width=innerWidth*dpr;cv.height=innerHeight*dpr};size();addEventListener("resize",size);
+  addEventListener("pointermove",e=>{if(e.pointerType==="touch")return;const x=e.clientX,y=e.clientY,now=performance.now();
+    if(lx===null){lx=x;ly=y}const dx=x-lx,dy=y-ly,steps=Math.max(1,Math.hypot(dx,dy)/6|0);
+    for(let k=1;k<=steps;k++)pts.push({x:lx+dx*k/steps,y:ly+dy*k/steps,t:now,r:8+Math.random()*16});
+    lx=x;ly=y;if(pts.length>260)pts.splice(0,pts.length-260);if(!run){run=true;requestAnimationFrame(draw)}},{passive:true});
+  document.addEventListener("pointerleave",()=>{lx=ly=null});
+  function draw(now){c.clearRect(0,0,cv.width,cv.height);pts=pts.filter(p=>now-p.t<1100);
+    for(const p of pts){const age=(now-p.t)/1100,a=1-age,n=rm?4:9,spread=p.r*(.5+age*1.4);
+      for(let k=0;k<n;k++){const ang=Math.random()*6.283,rr=Math.random()*spread,s=(Math.random()<.8?1:2)*dpr;
+        c.fillStyle=Math.random()<.55?`rgba(232,228,220,${(a*.75).toFixed(3)})`:`rgba(0,0,0,${(a*.85).toFixed(3)})`;
+        c.fillRect((p.x+Math.cos(ang)*rr)*dpr,(p.y+Math.sin(ang)*rr)*dpr,s,s)}}
+    if(pts.length)requestAnimationFrame(draw);else{run=false;c.clearRect(0,0,cv.width,cv.height)}}})();
 </script>
 </body>
 </html>

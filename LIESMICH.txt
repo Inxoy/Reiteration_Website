@@ -2,7 +2,8 @@ REITERATION – Website
 
 Inhalt
   index.html      die ganze Seite
-  img/            bg.jpg = Hintergrundbild (bekommt den Zerfall beim Scrollen), photo-01..25.jpg = Galerie
+  img/            bg.jpg = Hintergrundbild (wird beim Scrollen kontrastreicher), photo-01..25.jpg = Galerie,
+                  logo.jpg = Logo, organpipes_0005_web.jpg = spielbare Orgelpfeifen
   audio/orgel.mp3 der Klang hinter dem "listen"-Knopf
   fonts/          IM Fell DW Pica (Open Font License), von hier geladen – nichts wird von Google geholt
 
@@ -25,7 +26,27 @@ FOTOS
   Größe, Versatz und Parallax werden automatisch vergeben; Querformate werden ab und zu über die ganze Breite gezogen.
   Reihenfolge im Text = Reihenfolge auf der Seite. Beliebig viele möglich.
   Beim Scrollen leuchten die Bilder in der Bildschirmmitte auf (wie unter einer Lampe), Hover = voll hell.
-  Anklicken öffnet die Ansicht: nochmal klicken = Zoom (Maus/Finger bewegen = verschieben),
+  Jedes Foto hat weich auslaufende Ränder (Vignette) und geht in den Hintergrund über.
+  Anklicken öffnet das Foto in voller Helligkeit, ohne Vignette: nochmal klicken = Zoom (Maus/Finger bewegen = verschieben),
   Pfeiltasten oder Wischen = nächstes Bild, Esc = schließen.
+
+LOGO
+  img/logo.jpg wird oben neben dem Titel gezeigt (und als Browser-Tab-Symbol). Zum Austauschen einfach
+  eine andere Datei unter demselben Namen in img/ legen.
+
+ORGELPFEIFEN (Abschnitt "pipes")
+  Bild: img/organpipes_0005_web.jpg (verkleinerte Fassung von organpipes_0005.jpg).
+  Klänge: audio/pipes/pipe-01.wav … pipe-11.wav (umbenannte Aufnahmen, nach Tonhöhe sortiert:
+  pipe-01 = 199 Hz = längste Pfeife links, pipe-11 = 637 Hz = kürzeste rechts).
+  In index.html unter "const PIPES": hz = angezeigte Tonhöhe, ls/le = Anfang/Ende des gehaltenen Teils
+  (Sekunden, daraus wird die Schleife gebaut), gain = Lautstärkeangleichung zwischen den Aufnahmen.
+  Fehlt eine Datei, klingt an ihrer Stelle ein leiser synthetischer Ton in der Tonhöhe hz.
+  Jeder Ton bekommt bei jedem Anschlag einen zufälligen Platz im Stereobild und zufällig viel Hall
+  aus einem von drei Räumen (kleine Kammer, Saal, Steinkirche).
+  Pfeife anklicken = Ton läuft in Schleife, nochmal = Ton aus. Mehrere gleichzeitig möglich.
+  Die Schleife spielt den Anfang einmal und wiederholt dann den gehaltenen Teil mit kurzer Überblendung.
+  Hinweis: Wird index.html direkt per Doppelklick geöffnet (file://), nutzt die Seite eine einfachere
+  Wiedergabe. Online (oder mit einem lokalen Server) klingt die Schleife sauberer.
+  Beim Anklicken eines Fotos klingt außerdem kurz eine Pfeife (Foto 1 = Pfeife 1, Foto 12 = wieder Pfeife 1 …).
 
 ONLINE: den ganzen Ordnerinhalt bei GitHub Pages / Netlify / Cloudflare Pages hochladen (index.html muss oben liegen).
