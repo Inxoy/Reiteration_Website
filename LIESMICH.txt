@@ -1,32 +1,31 @@
 REITERATION – Website
 
 Inhalt
-  index.html      die ganze Seite (Text, Gestaltung, Verhalten)
-  img/            bg.jpg = Hintergrundbild, photo-1..6.jpg = Fotos
+  index.html      die ganze Seite
+  img/            bg.jpg = Hintergrundbild (bekommt den Zerfall beim Scrollen), photo-01..25.jpg = Galerie
   audio/orgel.mp3 der Klang hinter dem "listen"-Knopf
+  fonts/          IM Fell DW Pica (Open Font License), von hier geladen – nichts wird von Google geholt
 
-TEXT ÄNDERN
-1. index.html mit einem Texteditor öffnen (VS Code, Notepad++, TextEdit im Modus "Reiner Text" – NICHT Word).
-2. Mit Strg/Cmd+F nach einem Satz suchen, z. B. "wind, then nothing".
-3. Den Text zwischen > und </p> ändern:
-     <p class="t s2" data-r>HIER STEHT DER TEXT</p>
-   Das "data-r" dahinter nicht löschen, sonst verliert der Satz den Zerfalls-Effekt beim Darüberfahren.
-4. Titel: <h1 data-r>Reiteration</h1>   (und <title>…</title> ganz oben)
-5. Speichern, index.html im Browser aktualisieren (oder per Doppelklick lokal öffnen).
+TEXT ÄNDERN (index.html mit Texteditor öffnen: VS Code, Notepad++, TextEdit im Modus "Reiner Text" – nicht Word)
+  About:   Strg/Cmd+F → "Reiteration is the name" ; Text zwischen <p> und </p> ändern.
+  Live:    Strg/Cmd+F → "Madame Claude". Eine Zeile pro Auftritt, zum Ergänzen kopieren:
+             <li><time datetime="2026-11-09">09 Nov 2026</time><span>Madame Claude, Berlin</span></li>
+           (datetime = JJJJ-MM-TT, dann sichtbares Datum, dann Ort). Vergangene Zeilen löschen.
+  Titel:   <h1 data-r>Reiteration</h1>   (data-r nicht löschen, sonst fehlt der Hover-Effekt)
+  E-Mail:  steht zweimal als data-u="reiteration.booking" data-d="gmail.com" (vor/hinter dem @).
+  Links:   nach "youtube.com", "instagram.com", "bandcamp.com" suchen, Adresse in href="…" ersetzen.
+  Impressum: nach "Angaben gemäß" suchen.
+  Bandcamp-Player: nach "EmbeddedPlayer" suchen; album=… und track=… aus dem Bandcamp-Embed-Code übernehmen.
 
-E-MAIL: steht zweimal, jeweils in dieser Form:
-     <a class="m" data-u="reiteration.booking" data-d="gmail.com" ...>
-   data-u = Teil vor dem @, data-d = Teil dahinter. Die Adresse steht so nie zusammenhängend im Quelltext.
-LINKS: nach "youtube.com", "instagram.com" und "bandcamp.com" suchen und die Adresse in href="…" ersetzen.
-IMPRESSUM: nach "Angaben gemäß" suchen.
+FOTOS
+  Foto nach img/ legen (JPG, lange Seite ca. 1500 px, am besten schon schwarz-weiß) und im Abschnitt
+  <section class="gal"> eine Zeile ergänzen:
+     <figure class="ph"><img alt="photograph" src="img/NAME.jpg" width="1000" height="1500"></figure>
+  width/height = Pixelmaße des Fotos (ungefähr genügt, es zählt das Seitenverhältnis).
+  Größe, Versatz und Parallax werden automatisch vergeben; Querformate werden ab und zu über die ganze Breite gezogen.
+  Reihenfolge im Text = Reihenfolge auf der Seite. Beliebig viele möglich.
+  Beim Scrollen leuchten die Bilder in der Bildschirmmitte auf (wie unter einer Lampe), Hover = voll hell.
+  Anklicken öffnet die Ansicht: nochmal klicken = Zoom (Maus/Finger bewegen = verschieben),
+  Pfeiltasten oder Wischen = nächstes Bild, Esc = schließen.
 
-BILDER TAUSCHEN: neues Foto mit gleichem Namen in img/ legen (am besten ca. 1300 px lange Seite, JPG).
-BILD HINZUFÜGEN: eine Zeile kopieren, z. B.
-     <figure class="ph p1"><img alt="" src="img/photo-1.jpg"></figure>
-   dateiname ändern; die Klasse (p1, p3, p5 …) bestimmt die Spalte im 12er-Raster
-   (.p1{grid-column:8/13} im <style>-Bereich = Spalte 8 bis 13). Reihenfolge im Text = Reihenfolge auf der Seite.
-
-ONLINE STELLEN: den ganzen Ordner (nicht nur index.html) bei Netlify, Cloudflare Pages oder GitHub Pages hochladen.
-
-BANDCAMP-PLAYER: in index.html nach "track=1443381737" suchen. Die Zahl ist die Track-ID (daneben steht album=…); für einen anderen Song beide Nummern aus dem Bandcamp-Embed-Code übernehmen
-(Bandcamp: Track → "Share/Embed" → "Embed this track" zeigt die Nummer). Der Player lädt erst nach Klick.
+ONLINE: den ganzen Ordnerinhalt bei GitHub Pages / Netlify / Cloudflare Pages hochladen (index.html muss oben liegen).
