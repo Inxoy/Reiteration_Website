@@ -1,0 +1,32 @@
+REITERATION – Website
+
+Inhalt
+  index.html      die ganze Seite (Text, Gestaltung, Verhalten)
+  img/            bg.jpg = Hintergrundbild, photo-1..6.jpg = Fotos
+  audio/orgel.mp3 der Klang hinter dem "listen"-Knopf
+
+TEXT ÄNDERN
+1. index.html mit einem Texteditor öffnen (VS Code, Notepad++, TextEdit im Modus "Reiner Text" – NICHT Word).
+2. Mit Strg/Cmd+F nach einem Satz suchen, z. B. "wind, then nothing".
+3. Den Text zwischen > und </p> ändern:
+     <p class="t s2" data-r>HIER STEHT DER TEXT</p>
+   Das "data-r" dahinter nicht löschen, sonst verliert der Satz den Zerfalls-Effekt beim Darüberfahren.
+4. Titel: <h1 data-r>Reiteration</h1>   (und <title>…</title> ganz oben)
+5. Speichern, index.html im Browser aktualisieren (oder per Doppelklick lokal öffnen).
+
+E-MAIL: steht zweimal, jeweils in dieser Form:
+     <a class="m" data-u="reiteration.booking" data-d="gmail.com" ...>
+   data-u = Teil vor dem @, data-d = Teil dahinter. Die Adresse steht so nie zusammenhängend im Quelltext.
+LINKS: nach "youtube.com", "instagram.com" und "bandcamp.com" suchen und die Adresse in href="…" ersetzen.
+IMPRESSUM: nach "Angaben gemäß" suchen.
+
+BILDER TAUSCHEN: neues Foto mit gleichem Namen in img/ legen (am besten ca. 1300 px lange Seite, JPG).
+BILD HINZUFÜGEN: eine Zeile kopieren, z. B.
+     <figure class="ph p1"><img alt="" src="img/photo-1.jpg"></figure>
+   dateiname ändern; die Klasse (p1, p3, p5 …) bestimmt die Spalte im 12er-Raster
+   (.p1{grid-column:8/13} im <style>-Bereich = Spalte 8 bis 13). Reihenfolge im Text = Reihenfolge auf der Seite.
+
+ONLINE STELLEN: den ganzen Ordner (nicht nur index.html) bei Netlify, Cloudflare Pages oder GitHub Pages hochladen.
+
+BANDCAMP-PLAYER: in index.html nach "track=1443381737" suchen. Die Zahl ist die Track-ID (daneben steht album=…); für einen anderen Song beide Nummern aus dem Bandcamp-Embed-Code übernehmen
+(Bandcamp: Track → "Share/Embed" → "Embed this track" zeigt die Nummer). Der Player lädt erst nach Klick.

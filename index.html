@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Reiteration</title>
+<style>
+:root{--bg:#050505;--fg:#d9d6cf;--dim:#77746e;--d:0;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{background:var(--bg);scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:transparent;color:var(--fg);font:14px/1.7 ui-monospace,"SF Mono",Menlo,Consolas,monospace;overflow-x:hidden}
+::selection{background:var(--fg);color:var(--bg)}
+a{color:inherit;text-decoration:none;border-bottom:1px solid var(--dim)}
+a:hover{border-color:var(--fg)}
+#bg{position:fixed;inset:-4%;z-index:-2;background:url(img/bg.jpg) center/cover;filter:grayscale(1) brightness(.4) blur(10px)}
+.grain{position:fixed;inset:-50%;pointer-events:none;z-index:9;opacity:calc(.2 + var(--d)*.3);mix-blend-mode:overlay;animation:j .9s steps(6) infinite;
+background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 1.4 0 0 0 -.2'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>")}
+.scan{position:fixed;inset:0;pointer-events:none;z-index:8;opacity:calc(var(--d)*.5);background:repeating-linear-gradient(0deg,rgba(0,0,0,.55) 0 1px,transparent 1px 3px)}
+@keyframes j{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+main{max-width:1400px;margin:0 auto;padding:0 5vw 12vh}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:8vh}
+h1{font:italic 400 clamp(64px,16vw,230px)/.85 Georgia,"Times New Roman",serif;letter-spacing:-.04em;margin:0;filter:blur(max(0px,calc(4px - var(--d)*60px)))}
+.sub{color:var(--dim);margin-top:2rem;letter-spacing:.3em;text-transform:uppercase;font-size:11px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:10vh 2vw;align-items:start}
+.t{color:#8c8982;transition:color .4s;cursor:default;max-width:34ch;margin:0;text-shadow:0 0 8px #000}
+.t:hover{color:var(--fg)}
+.big{font:italic 400 clamp(28px,4.5vw,60px)/1.1 Georgia,serif;color:var(--fg);max-width:none}
+.ph{margin:0;overflow:hidden}
+.ph img{display:block;width:100%;height:auto;filter:url(#deg);will-change:transform}
+.p1{grid-column:8/13}.p3{grid-column:1/9}.p5{grid-column:2/7}.p4{grid-column:7/13;margin-top:10vh}.p6{grid-column:1/6}.p7{grid-column:7/11}
+.s1{grid-column:2/7}.s2{grid-column:9/13}.s3{grid-column:8/13}.s4{grid-column:1/6}.s5{grid-column:2/12}
+.contact{margin-top:20vh;font-size:clamp(18px,3vw,34px);font-family:Georgia,serif;font-style:italic;text-shadow:0 0 10px #000}
+.links{display:flex;gap:2rem;margin-top:1.5rem;letter-spacing:.2em;text-transform:uppercase;font-size:11px;font-family:ui-monospace,monospace;font-style:normal}
+.imp summary{cursor:pointer;list-style:none}.imp summary::-webkit-details-marker{display:none}.imp div{margin-top:1rem;line-height:1.8;color:var(--fg);background:rgba(0,0,0,.65);padding:1rem 1.2rem}
+footer{margin-top:14vh;align-items:flex-start;color:var(--dim);font-size:11px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.bc{margin-top:12vh}.bc button{background:rgba(0,0,0,.55);color:var(--fg);border:1px solid var(--dim);font:12px ui-monospace,monospace;letter-spacing:.15em;padding:1em 1.4em;cursor:pointer;text-align:left}.bc button:hover{border-color:var(--fg)}.bc small{color:var(--dim);letter-spacing:0;margin-left:.6em}.bc iframe{border:0;display:block;width:100%;max-width:400px;height:42px}
+#snd{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;background:rgba(0,0,0,.55);color:var(--fg);border:1px solid var(--dim);font:11px ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;padding:.6em 1em;cursor:pointer}
+#snd:hover{border-color:var(--fg)}
+@media(max-width:700px){.grid>*{grid-column:1/13!important;margin-top:0!important}.p1,.p5,.p7{grid-column:2/13!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<filter id="deg" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+ <feGaussianBlur id="gb" in="SourceGraphic" stdDeviation="3 .7" result="b"/>
+ <feTurbulence type="fractalNoise" baseFrequency=".008 .5" numOctaves="1" seed="7" result="n"/>
+ <feDisplacementMap id="dm" in="b" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G" result="d"/>
+ <feColorMatrix in="d" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r"/>
+ <feOffset id="ro" in="r" dx="0" dy="0" result="r2"/>
+ <feColorMatrix in="d" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" result="gbc"/>
+ <feBlend in="r2" in2="gbc" mode="screen" result="m"/>
+ <feComponentTransfer id="ct" in="m"><feFuncR type="discrete" tableValues="0 1"/><feFuncG type="discrete" tableValues="0 1"/><feFuncB type="discrete" tableValues="0 1"/></feComponentTransfer>
+</filter></defs></svg>
+<div id="bg"></div><div class="grain"></div><div class="scan"></div>
+<main>
+  <section class="hero">
+    <h1 data-r>Reiteration</h1>
+    <div class="sub">pipes &nbsp;/&nbsp; air &nbsp;/&nbsp; room</div>
+  </section>
+
+  <section class="grid">
+    <p class="t big s1" data-r>the fifth is a little too small, the third is true.</p>
+    <figure class="ph p1"><img alt="" src="img/photo-1.jpg"></figure>
+    <figure class="ph p3"><img alt="" src="img/photo-2.jpg"></figure>
+    <p class="t s2" data-r>wind, then nothing, then wind. a copy of a copy of a copy.</p>
+    <figure class="ph p5"><img alt="" src="img/photo-3.jpg"></figure>
+    <p class="t s3" data-r>1/4 comma — 696.6 ct — the wolf lives in the room.</p>
+    <figure class="ph p4"><img alt="" src="img/photo-4.jpg"></figure>
+    <p class="t s4" data-r>pipes → sphere → room as instrument. what the noise remembers.</p>
+    <figure class="ph p6"><img alt="" src="img/photo-5.jpg"></figure>
+    <figure class="ph p7"><img alt="" src="img/photo-6.jpg"></figure>
+    <p class="t big s5" data-r>the image decays; the sound stays in the walls.</p>
+  </section>
+
+  <section class="bc"><button id="bcb" type="button">▶ Mysterii Paschalis <small>(load player · bandcamp.com)</small></button></section>
+  <section class="contact">
+    <a class="m" data-u="reiteration.booking" data-d="gmail.com" data-r></a>
+    <div class="links"><a href="https://www.youtube.com/@Reiteration-t7m" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/reiteration_n/" target="_blank" rel="noopener">Instagram</a><a href="https://reiteration.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a></div>
+  </section>
+  <footer><span>© 2026 Reiteration</span><details class="imp"><summary>Impressum</summary><div>Angaben gemäß § 5 DDG<br>Christoffer Schöne<br>Storkower Straße 221<br>10367 Berlin<br>E-Mail: <a class="m" data-u="reiteration.booking" data-d="gmail.com"></a><noscript>reiteration.booking (at) gmail.com</noscript></div></details></footer>
+</main>
+<button id="snd" aria-pressed="false">◌ listen <small>(headphones)</small></button>
+<audio id="au" loop preload="none" src="audio/orgel.mp3"></audio>
+<script>
+const $=id=>document.getElementById(id),R=document.documentElement,G="▓▒░01/\\|·";
+document.querySelectorAll(".m").forEach(a=>{const e=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+e;a.textContent=e});
+const gb=$("gb"),dm=$("dm"),ro=$("ro"),cts=[...document.querySelectorAll("#ct *")],bg=$("bg");
+let last=-1,tick=false;
+function upd(){tick=false;
+  const m=R.scrollHeight-innerHeight,d=Math.min(1,Math.max(0,scrollY/Math.max(1,m)));
+  if(Math.abs(d-last)<.004)return;last=d;
+  R.style.setProperty("--d",d);
+  const k=1-Math.min(1,d*1.6);
+  const ki=1-Math.min(1,d*3.5);
+  gb.setAttribute("stdDeviation",(ki*3).toFixed(2)+" "+(ki*.7).toFixed(2));
+  dm.setAttribute("scale",(Math.max(0,d-.3)*70).toFixed(1));
+  ro.setAttribute("dx",(Math.max(0,d-.45)*14).toFixed(1));
+  const n=Math.round(32-Math.max(0,d-.4)/.6*29),tv=Array.from({length:n},(_,i)=>(i/(n-1)).toFixed(3)).join(" ");
+  cts.forEach(f=>f.setAttribute("tableValues",tv));
+  bg.style.filter=`grayscale(1) brightness(${.4+d*.1}) contrast(${1+d*.9}) blur(${(k*10).toFixed(1)}px)`;
+}
+addEventListener("scroll",()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});
+addEventListener("resize",upd);upd();
+const rs=[...document.querySelectorAll("[data-r]")];
+rs.forEach(el=>{const o=el.textContent;let t;
+  el.addEventListener("mouseenter",()=>{let i=0;clearInterval(t);t=setInterval(()=>{
+    el.textContent=[...o].map(c=>c===" "||Math.random()>.12+i*.04?c:G[Math.random()*G.length|0]).join("");
+    if(++i>14){clearInterval(t);el.textContent=o}},60)});
+  el._o=o});
+const imgs=[...document.querySelectorAll(".ph img")];
+setInterval(()=>{const d=last;if(d<.3||Math.random()>d)return;
+  const im=imgs[Math.random()*imgs.length|0];
+  im.style.transform=`translateX(${((Math.random()-.5)*d*60).toFixed(0)}px)`;
+  setTimeout(()=>im.style.transform="",90);
+  const el=rs[1+Math.random()*(rs.length-1)|0],o=el._o;
+  if(o&&el.textContent===o){const a=[...o],i=Math.random()*a.length|0;a[i]=G[Math.random()*G.length|0];el.textContent=a.join("");setTimeout(()=>{el.textContent=o},140)}
+},380);
+$("bcb").onclick=function(){const f=document.createElement("iframe");f.src="https://bandcamp.com/EmbeddedPlayer/album=2392678967/size=small/bgcol=050505/linkcol=d9d6cf/track=1443381737/transparent=true/";f.title="Mysterii Paschalis – Reiteration";f.allow="autoplay";this.replaceWith(f)};
+const au=$("au"),sb=$("snd");
+sb.onclick=()=>{if(au.paused){au.play().catch(()=>{});sb.firstChild.textContent="● listening ";sb.setAttribute("aria-pressed","true")}else{au.pause();sb.firstChild.textContent="◌ listen ";sb.setAttribute("aria-pressed","false")}};
+</script>
+</body>
+</html>
