@@ -49,4 +49,11 @@ ORGELPFEIFEN (Abschnitt "pipes")
   Wiedergabe. Online (oder mit einem lokalen Server) klingt die Schleife sauberer.
   Beim Anklicken eines Fotos klingt außerdem kurz eine Pfeife (Foto 1 = Pfeife 1, Foto 12 = wieder Pfeife 1 …).
 
+NEUE FOTOS (Stand Oktober 2026)
+  Die großen Originale bleiben in img/ bzw. img/bandphotography/ liegen, werden aber NICHT zu GitHub
+  hochgeladen (siehe Datei .gitignore). Die Website nutzt verkleinerte Kopien (lange Seite 1500 px,
+  ohne Kamera-/GPS-Daten): img/web/ = Galerie, img/band/ = Band- & Livefotografie.
+  Bandfotos: <figure class="ph"><img ... src="img/band/NAME.jpg" data-cap="Bandname"></figure>
+  data-cap = Text, der beim Anklicken unter dem Foto steht. Jede Galerie wird für sich durchgeblättert.
+
 ONLINE: den ganzen Ordnerinhalt bei GitHub Pages / Netlify / Cloudflare Pages hochladen (index.html muss oben liegen).
