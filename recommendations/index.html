@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Recommendations — Reiteration</title>
+<meta name="description" content="Games, music, videos and other things Reiteration finds great.">
+<link rel="icon" href="../img/logo.jpg">
+<link rel="stylesheet" href="../assets/site.css">
+<style>#bg{background-image:url(../img/photo-16.jpg)}
+.filt{display:flex;gap:.5rem;flex-wrap:wrap;margin:0 0 3rem}
+.filt button{background:rgba(0,0,0,.55);color:var(--dim);border:1px solid #3a3735;font:12px var(--f);letter-spacing:.2em;text-transform:uppercase;padding:.55em 1em;cursor:pointer}
+.filt button[aria-pressed=true],.filt button:hover{color:var(--fg);border-color:var(--fg)}
+.recs{max-width:900px}
+.rec{border-top:1px solid #333;padding:1.6rem 0 1.3rem;text-shadow:0 0 10px #000}
+.rec:last-child{border-bottom:1px solid #333}
+.rec[hidden]{display:none}
+.rk{color:var(--dim);letter-spacing:.3em;text-transform:uppercase;font-size:12px}
+.rec h3{margin:.4rem 0 .1rem;font:italic 400 clamp(28px,4vw,52px)/1.1 var(--f)}
+.rec h3 a{border:0}.rec h3 a:hover{border-bottom:1px solid var(--fg)}
+.by{margin:.2rem 0 .4rem;color:var(--dim);font-style:italic}
+.rec p{max-width:62ch;margin:0 0 .8em;font-size:clamp(17px,1.6vw,20px)}
+.empty{font:italic 400 clamp(22px,2.6vw,32px)/1.4 var(--f);color:var(--dim)}
+</style>
+<script src="../assets/site.js" defer></script>
+<script src="../assets/organ.js" defer></script>
+</head>
+<body>
+<div id="bg"></div><div class="scan"></div><div class="grain"></div>
+<main>
+  <header class="hero small">
+    <a class="crumb" href="../">← Reiteration</a>
+    <div class="brand"><img class="logo" id="eye" src="../img/logo.jpg" alt="Reiteration logo"><div id="eyemsg" role="status" hidden>Stop clicking my eye</div><h1 data-r>Recommendations</h1></div>
+    <div class="sub">games, music, videos …</div>
+  </header>
+
+  <section class="about left" id="recs">
+    <p>Games, music, videos and other things I find great, with a few words on why.</p>
+  </section>
+
+  <section>
+    <div class="filt" id="filt" hidden></div>
+    <div class="recs" id="list">
+<!-- ===== NEUE EMPFEHLUNG: diesen Block kopieren, oben einfügen (neueste zuerst) und ausfüllen =====
+      <article class="rec" data-type="game">
+        <div class="rk">game · 2019</div>
+        <h3><a href="https://link-zur-seite" target="_blank" rel="noopener">Titel</a></h3>
+        <p class="by">by Name</p>
+        <p>Ein paar Sätze, warum es gut ist.</p>
+      </article>
+     data-type = Kategorie für die Filter-Knöpfe (z. B. music, game, video, film, book). Link und "by"-Zeile sind optional.
+     ============================================================================================== -->
+      <article class="rec" data-type="music">
+        <div class="rk">music</div>
+        <h3>Raphael Rogiński</h3>
+      </article>
+      <article class="rec" data-type="music">
+        <div class="rk">music</div>
+        <h3>Still House Plants</h3>
+      </article>
+      <article class="rec" data-type="game">
+        <div class="rk">game · 2019</div>
+        <h3>Disco Elysium</h3>
+        <p class="by">by ZA/UM</p>
+      </article>
+      <article class="rec" data-type="music">
+        <div class="rk">music</div>
+        <h3>Kali Malone</h3>
+      </article>
+      <article class="rec" data-type="performance">
+        <div class="rk">performance inspiration</div>
+        <h3>Lingua Ignota</h3>
+      </article>
+      <article class="rec" data-type="performance">
+        <div class="rk">performance inspiration</div>
+        <h3>Otay:onii</h3>
+      </article>
+      <article class="rec" data-type="performance">
+        <div class="rk">performance inspiration</div>
+        <h3>Dis Fig</h3>
+      </article>
+      <article class="rec" data-type="film">
+        <div class="rk">film · 1969</div>
+        <h3>The Color of Pomegranates</h3>
+        <p class="by">by Sergei Parajanov</p>
+      </article>
+    </div>
+    <p class="empty" id="empty">Nothing here yet. Soon.</p>
+  </section>
+<script>
+/* filter buttons are built from the categories that exist; "nothing here yet" disappears once there is an entry */
+addEventListener("DOMContentLoaded",()=>{const recs=[...document.querySelectorAll(".rec")],f=document.getElementById("filt");
+  if(!recs.length)return;document.getElementById("empty").hidden=true;
+  const types=[...new Set(recs.map(r=>r.dataset.type).filter(Boolean))];if(types.length<2)return;
+  f.hidden=false;["all",...types].forEach(t=>{const b=document.createElement("button");b.type="button";b.textContent=t;b.setAttribute("aria-pressed",t==="all");
+    b.onclick=()=>{f.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));recs.forEach(r=>r.hidden=t!=="all"&&r.dataset.type!==t)};f.appendChild(b)})});
+</script>
+  <footer>
+    <span>© 2026 Reiteration</span>
+    <span class="fl"><a class="m" data-u="reiteration.booking" data-d="gmail.com"></a><a href="https://www.youtube.com/@Reiteration-t7m" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/reiteration_n/" target="_blank" rel="noopener">Instagram</a><a href="https://reiteration.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a></span>
+    <details class="imp"><summary>Impressum</summary><div>Angaben gemäß § 5 DDG<br>Christoffer Schöne<br>Storkower Straße 221<br>10367 Berlin<br>E-Mail: <a class="m" data-u="reiteration.booking" data-d="gmail.com"></a><noscript>reiteration.booking (at) gmail.com</noscript></div></details>
+  </footer>
+</main>
+
+<div id="lb" hidden><img id="lbi" alt=""><button id="lbp" aria-label="previous">‹</button><button id="lbn" aria-label="next">›</button><button id="lbx" aria-label="close">×</button><span id="lbt"></span><span id="lbc"></span></div>
+<nav id="nav" aria-label="quick links"><a href="../">home</a></nav>
+<canvas id="trail" aria-hidden="true"></canvas>
+</body>
+</html>

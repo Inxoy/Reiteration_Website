@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Live Performance — Reiteration</title>
+<meta name="description" content="Reiteration live: ambisonic and multichannel performances with pipe organ, guitars and autoharp.">
+<link rel="icon" href="../img/logo.jpg">
+<link rel="stylesheet" href="../assets/site.css">
+<style>#bg{background-image:url(../img/photo-13.jpg)}
+.perf li{flex-direction:column;align-items:flex-start;gap:.5rem}
+.perf .d{font:17px/1.6 var(--f);font-style:normal;color:var(--fg);opacity:.8;max-width:62ch;text-shadow:none}
+.perf .row{display:flex;gap:.4rem 2rem;flex-wrap:wrap;align-items:baseline;justify-content:space-between;width:100%}
+</style>
+<script src="../assets/site.js" defer></script>
+<script src="../assets/organ.js" defer></script>
+</head>
+<body>
+<div id="bg"></div><div class="scan"></div><div class="grain"></div>
+<main>
+  <header class="hero small">
+    <a class="crumb" href="../">← Reiteration</a>
+    <div class="brand"><img class="logo" id="eye" src="../img/logo.jpg" alt="Reiteration logo"><div id="eyemsg" role="status" hidden>Stop clicking my eye</div><h1 data-r>Live Performance</h1></div>
+    <div class="sub">philosophy &amp; past performances</div>
+  </header>
+
+  <section class="about" id="philosophy">
+    <div class="lab">philosophy</div>
+    <p>For me a concert is never just the playing of finished music. Every performance is a room I build together with the people in it: the speakers around them, the instruments in my hands and recordings that have travelled there from somewhere else.</p>
+    <p>Most of my sets happen in multichannel and ambisonic systems. Pre-produced spatial music meets live instruments in the middle of the dome: autoharp, acoustic guitar, a just intonation guitar and an eight-string. I play from its centre, among the audience and not in front of it.</p>
+    <p>Things are allowed to break. The music stops, my laptop crashes on purpose, I talk to the room, I cut my hair and hand it out, a bottle of red wine goes around. I don't want to illustrate grief, death and religion on a stage. I want to share them, as a ritual that everyone in the room is part of.</p>
+  </section>
+
+  <section class="about" id="now">
+    <div class="lab">currently</div>
+    <p>Right now I am working on prepared electric guitar for the live context. I use RAVE by IRCAM, a neural audio model, to blur the line between me as the performer and the algorithm. In these pieces I don't just play the guitar, I embody the sound.</p>
+  </section>
+
+  <section class="live perf" id="performances">
+    <div class="lab">past performances</div>
+    <ul>
+      <li><div class="row"><span>kontAKT</span><time>ambisonics · 8 channels · c. 45 min</time></div>
+        <span class="d">A spatial performance on an eight-channel system. Pre-produced ambisonic music with live autoharp, acoustic guitar and electric guitars: organ works, layered spatial guitar, a granular guitar solo and a staged crash.</span></li>
+      <li><div class="row"><span>Rysum</span><time>ambisonics · 21 speakers</time></div>
+        <span class="d">A piece made from ambisonic recordings of the 1457 organ in Rysum, East Frisia, played over 21 loudspeakers. I made it in the Critical Immersion Studies workshop with Gerriet Sharma and Holger Schulze.</span></li>
+    </ul>
+    <p class="d" style="margin-top:2rem">Next: <a href="../#live">see upcoming dates</a></p>
+  </section>
+
+  <section class="gal" aria-label="live photographs"><figure class="ph"><img alt="photograph" src="../img/web/guitarorgan_0002.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="../img/photo-12.jpg" width="1500" height="999" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="../img/web/rysum_photos_0012.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="../img/photo-17.jpg" width="865" height="1300" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="../img/photo-07.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="../img/photo-21.jpg" width="1080" height="719" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="../img/photo-02.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure></section>
+
+  <section class="about" id="booking">
+    <div class="lab">booking</div>
+    <p>For concerts, installations and multichannel spaces: <a class="m" data-u="reiteration.booking" data-d="gmail.com"></a></p>
+  </section>
+  <footer>
+    <span>© 2026 Reiteration</span>
+    <span class="fl"><a class="m" data-u="reiteration.booking" data-d="gmail.com"></a><a href="https://www.youtube.com/@Reiteration-t7m" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/reiteration_n/" target="_blank" rel="noopener">Instagram</a><a href="https://reiteration.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a></span>
+    <details class="imp"><summary>Impressum</summary><div>Angaben gemäß § 5 DDG<br>Christoffer Schöne<br>Storkower Straße 221<br>10367 Berlin<br>E-Mail: <a class="m" data-u="reiteration.booking" data-d="gmail.com"></a><noscript>reiteration.booking (at) gmail.com</noscript></div></details>
+  </footer>
+</main>
+
+<div id="lb" hidden><img id="lbi" alt=""><button id="lbp" aria-label="previous">‹</button><button id="lbn" aria-label="next">›</button><button id="lbx" aria-label="close">×</button><span id="lbt"></span><span id="lbc"></span></div>
+<nav id="nav" aria-label="quick links"><a href="../">home</a><a href="#philosophy">philosophy</a><a href="#now">currently</a><a href="#performances">performances</a></nav>
+<canvas id="trail" aria-hidden="true"></canvas>
+</body>
+</html>

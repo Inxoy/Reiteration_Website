@@ -1,104 +1,41 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-root="">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Reiteration</title>
+<meta name="description" content="Reiteration – composer and artist in Berlin. Meantone pipe organ, just intonation guitar, ambisonics.">
 <link rel="icon" href="img/logo.jpg">
-<style>
-@font-face{font-family:"IM Fell DW Pica";font-style:normal;font-weight:400;font-display:swap;src:url(fonts/fell-regular.woff2) format("woff2")}
-@font-face{font-family:"IM Fell DW Pica";font-style:italic;font-weight:400;font-display:swap;src:url(fonts/fell-italic.woff2) format("woff2")}
-:root{--bg:#050505;--fg:#d9d6cf;--dim:#77746e;--f:"IM Fell DW Pica",Georgia,"Times New Roman",serif;--d:0;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{background:var(--bg);scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:transparent;color:var(--fg);font:17px/1.65 var(--f);overflow-x:hidden}
-::selection{background:var(--fg);color:var(--bg)}
-a{color:inherit;text-decoration:none;border-bottom:1px solid var(--dim)}
-a:hover{border-color:var(--fg)}
-#bg{position:fixed;inset:-4%;z-index:-3;background:url(img/bg.jpg) center/cover;filter:grayscale(1) brightness(.4)}
-.scan{position:fixed;inset:0;pointer-events:none;z-index:-2;opacity:calc(var(--d)*.5);background:repeating-linear-gradient(0deg,rgba(0,0,0,.55) 0 1px,transparent 1px 3px)}
-.grain{position:fixed;inset:-50%;pointer-events:none;z-index:9;opacity:.2;mix-blend-mode:overlay;animation:j .9s steps(6) infinite;
-background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 1.4 0 0 0 -.2'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>")}
-@keyframes j{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
-main{max-width:1400px;margin:0 auto;padding:0 5vw 12vh}
-.hero{padding-top:clamp(28px,7vh,80px)}
-.brand{position:relative;display:flex;align-items:center;flex-wrap:wrap;gap:clamp(12px,2.5vw,36px)}
-.logo{display:block;height:clamp(84px,13vw,190px);width:auto;filter:grayscale(1) contrast(1.1);
-  -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 40%,rgba(0,0,0,.55) 72%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 40%,rgba(0,0,0,.55) 72%,transparent 100%)}
-#eye{cursor:pointer}
-#eyemsg{position:absolute;left:0;top:calc(100% + 10px);z-index:12;background:rgba(5,5,5,.88);border:1px solid var(--dim);padding:.7em 1.1em;font:italic 400 clamp(18px,2vw,24px)/1.3 var(--f);color:var(--fg);box-shadow:0 0 30px #000;white-space:nowrap;animation:pop .25s steps(3)}
-#eyemsg[hidden]{display:none}
-@keyframes pop{0%{opacity:0;transform:translate(-4px,3px)}50%{opacity:.6;transform:translate(3px,-2px)}100%{opacity:1;transform:none}}
-h1{font:italic 400 clamp(64px,16vw,230px)/.85 var(--f);letter-spacing:-.04em;margin:0}
-.hero+section{margin-top:12vh}
-.sub,.lab{color:var(--dim);letter-spacing:.3em;text-transform:uppercase;font-size:13px}
-.sub{margin-top:2rem}
-.lab{margin-bottom:1.5rem}
-section{margin-top:18vh}
-.about{max-width:60ch;margin-left:auto;font:italic 400 clamp(20px,2.2vw,27px)/1.55 var(--f);text-shadow:0 0 10px #000}
-.about p{margin:0 0 1em}
-.bandtxt{margin-top:22vh}.bandtxt+.gal{margin-top:10vh}
-.gal{display:flex;flex-wrap:wrap;align-items:flex-start;gap:0 2vw}
-.ph{margin:0 0 8vh;flex:0 0 auto;width:var(--w,30%);margin-left:var(--ml,0);margin-top:var(--mt,0);overflow:hidden;will-change:transform}
-.ph.wide{width:100%;margin-left:0}
-.ph img{display:block;width:100%;height:auto;cursor:zoom-in;filter:grayscale(1) brightness(var(--b,.5));transition:filter .6s,transform .8s}
-/* soft feathered edges: the photo dissolves into the background, plus a vignette inside */
-.ph,.org{--fe:17%;position:relative;
-  -webkit-mask-image:linear-gradient(90deg,transparent,rgba(0,0,0,.35) calc(var(--fe)*.3),rgba(0,0,0,.8) calc(var(--fe)*.65),#000 var(--fe),#000 calc(100% - var(--fe)),rgba(0,0,0,.8) calc(100% - var(--fe)*.65),rgba(0,0,0,.35) calc(100% - var(--fe)*.3),transparent),linear-gradient(180deg,transparent,rgba(0,0,0,.35) calc(var(--fe)*.3),rgba(0,0,0,.8) calc(var(--fe)*.65),#000 var(--fe),#000 calc(100% - var(--fe)),rgba(0,0,0,.8) calc(100% - var(--fe)*.65),rgba(0,0,0,.35) calc(100% - var(--fe)*.3),transparent);
-  -webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,rgba(0,0,0,.35) calc(var(--fe)*.3),rgba(0,0,0,.8) calc(var(--fe)*.65),#000 var(--fe),#000 calc(100% - var(--fe)),rgba(0,0,0,.8) calc(100% - var(--fe)*.65),rgba(0,0,0,.35) calc(100% - var(--fe)*.3),transparent),linear-gradient(180deg,transparent,rgba(0,0,0,.35) calc(var(--fe)*.3),rgba(0,0,0,.8) calc(var(--fe)*.65),#000 var(--fe),#000 calc(100% - var(--fe)),rgba(0,0,0,.8) calc(100% - var(--fe)*.65),rgba(0,0,0,.35) calc(100% - var(--fe)*.3),transparent);mask-composite:intersect}
-.ph::after,.org::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 75% 75% at 50% 50%,transparent 45%,rgba(0,0,0,.55) 100%)}
-.org{--fe:7%}.org::after{background:radial-gradient(ellipse 80% 80% at 50% 50%,transparent 60%,rgba(0,0,0,.4) 100%)}
-[data-r] span{position:relative}
-[data-r] .x{color:transparent;text-shadow:none}
-[data-r] .x::after{content:attr(data-g);position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);font-size:.55em;line-height:1;color:var(--fg);pointer-events:none}
-.hint{margin:0 0 2.2rem;max-width:42ch;font:italic 400 clamp(22px,2.6vw,32px)/1.4 var(--f);text-shadow:0 0 10px #000}
-.hint b{font-weight:400;border-bottom:1px solid var(--dim)}
-.org{width:min(100%,520px);margin-left:8%}
-.org img{display:block;width:100%;height:auto;filter:brightness(.82)}
-.org svg{position:absolute;inset:0;width:100%;height:100%;z-index:1}
-.org polygon{fill:#fff;fill-opacity:0;cursor:pointer;outline:none;transition:fill-opacity .4s}
-.org polygon:hover,.org polygon:focus-visible{fill-opacity:.07}
-.org polygon.on{animation:breathe 2.4s ease-in-out infinite}
-@keyframes breathe{0%,100%{fill-opacity:.14}50%{fill-opacity:.3}}
-.notes{margin-top:1rem;min-height:1.6em;color:var(--dim);letter-spacing:.3em;font-size:13px;text-transform:uppercase}
-#trail{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:35}
-.ph img:hover{filter:grayscale(1) brightness(1.1);transform:scale(1.03)}
-.live ul{list-style:none;margin:0;padding:0;max-width:900px}
-.live li{display:flex;gap:2rem;flex-wrap:wrap;justify-content:space-between;align-items:baseline;border-top:1px solid #333;padding:1.2rem 0;font:italic 400 clamp(24px,3.6vw,48px)/1.2 var(--f);text-shadow:0 0 10px #000}
-.live li:last-child{border-bottom:1px solid #333}
-.live time{font:14px var(--f);letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
-.bc button{background:rgba(0,0,0,.55);color:var(--fg);border:1px solid var(--dim);font:14px var(--f);letter-spacing:.15em;padding:1em 1.4em;cursor:pointer;text-align:left}
-.bc button:hover{border-color:var(--fg)}.bc small{color:var(--dim);letter-spacing:0;margin-left:.6em}
-.bc iframe{border:0;display:block;width:100%;max-width:400px;height:42px}
-.contact{font-size:clamp(20px,3.2vw,38px);font-family:var(--f);font-style:italic;text-shadow:0 0 10px #000}
-.links{display:flex;gap:2rem;flex-wrap:wrap;margin-top:1.5rem;letter-spacing:.2em;text-transform:uppercase;font:13px var(--f);font-style:normal}
-footer{margin-top:14vh;align-items:flex-start;color:var(--dim);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.imp summary{cursor:pointer;list-style:none}.imp summary::-webkit-details-marker{display:none}.imp div{margin-top:1rem;line-height:1.8;color:var(--fg);background:rgba(0,0,0,.65);padding:1rem 1.2rem}
-#snd{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;background:rgba(0,0,0,.55);color:var(--fg);border:1px solid var(--dim);font:13px var(--f);letter-spacing:.2em;text-transform:uppercase;padding:.6em 1em;cursor:pointer}
-#snd:hover{border-color:var(--fg)}
-#nav{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;display:flex;gap:.5rem}#nav a{background:rgba(0,0,0,.55);color:var(--fg);border:1px solid var(--dim);font:13px var(--f);letter-spacing:.2em;text-transform:uppercase;padding:.6em 1em}#nav a:hover{border-color:var(--fg)}
-html{scroll-behavior:smooth}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-#live,#contact,#band,#about{scroll-margin-top:4vh}
-@media(max-width:480px){#nav a,#snd{padding:.5em .7em;letter-spacing:.1em}#snd small{display:none}}
-@media(max-width:640px){#nav{left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));gap:.35rem}#nav a{flex:1;text-align:center;padding:.6em .2em;font-size:11px;letter-spacing:.08em}#snd{bottom:calc(62px + env(safe-area-inset-bottom,0px));left:max(12px,env(safe-area-inset-left,0px))}}
-#lb{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;overflow:hidden;touch-action:pan-y}
-#lb[hidden]{display:none}
-#lb img{max-width:94vw;max-height:80vh;margin-bottom:6vh;object-fit:contain;cursor:zoom-in;transition:transform .35s}
-#lb.z img{transform:scale(2.4);cursor:zoom-out}
-#lb button{position:absolute;background:none;border:0;color:var(--fg);font:40px var(--f);cursor:pointer;padding:.3em .5em;opacity:.7}
-#lb button:hover{opacity:1}
-#lbp{left:0;top:50%}#lbn{right:0;top:50%}#lbx{right:0;top:env(safe-area-inset-top,0px)}
-#lbt{position:absolute;bottom:calc(40px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);font:italic 400 clamp(22px,2.4vw,30px)/1 var(--f);color:var(--fg);white-space:nowrap;text-shadow:0 0 12px #000}
-#lbc{position:absolute;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);font-size:13px;letter-spacing:.2em;color:var(--dim)}
-@media(max-width:700px){.org{margin-left:0}.ph{width:calc(50% - 1vw)!important;margin-left:0!important;margin-top:0!important}.ph.wide{width:100%!important}}
+<link rel="stylesheet" href="assets/site.css">
+<style>#bg{background-image:url(img/bg-home.jpg)}
+.idx{margin-top:12vh;max-width:1100px}
+.idx a{display:grid;grid-template-columns:4.5rem 1fr;align-items:baseline;gap:0 1rem;border:0;border-top:1px solid #3a3735;padding:1.5rem 0 1.4rem;text-shadow:0 0 14px #000;transition:padding .5s,background .5s}
+.idx a:last-child{border-bottom:1px solid #3a3735}
+.idx a:hover{padding-left:1.2rem;background:linear-gradient(90deg,rgba(0,0,0,.55),transparent 70%)}
+.idx .n{color:var(--dim);font-size:13px;letter-spacing:.3em}
+.idx .t{font:italic 400 clamp(30px,5.4vw,76px)/1.05 var(--f);letter-spacing:-.02em}
+.idx .k{grid-column:2;margin-top:.6rem;color:var(--dim);letter-spacing:.3em;text-transform:uppercase;font-size:12px}
+.idx a.hf:hover .t{color:#e2262c}
+@media(max-width:600px){.idx a{grid-template-columns:2.6rem 1fr}}
 </style>
+<script src="assets/site.js" defer></script>
+<script src="assets/organ.js" defer></script>
 </head>
 <body>
 <div id="bg"></div><div class="scan"></div><div class="grain"></div>
 <main>
   <header class="hero">
     <div class="brand"><img class="logo" id="eye" src="img/logo.jpg" alt="Reiteration logo"><div id="eyemsg" role="status" hidden>Stop clicking my eye</div><h1 data-r>Reiteration</h1></div>
-    <div class="sub">composer &nbsp;/&nbsp; berlin</div>
+    <div class="sub">composer &nbsp;/&nbsp; Artist &nbsp;/&nbsp; berlin</div>
   </header>
+
+  <nav class="idx" aria-label="pages">
+    <a href="mariia-iii/"><span class="n">01</span><span class="t" data-r>Mariia III</span><span class="k">album</span></a>
+    <a class="hf" href="hellfire/"><span class="n">02</span><span class="t" data-r>There's a Hellfire beyond the Darkness of your Eyes</span><span class="k">first album</span></a>
+    <a href="live/"><span class="n">03</span><span class="t" data-r>Live Performance</span><span class="k">philosophy &amp; past performances</span></a>
+    <a href="photography/"><span class="n">04</span><span class="t" data-r>Band &amp; Live Photography</span><span class="k">black &amp; white, grainy</span></a>
+    <a href="recommendations/"><span class="n">05</span><span class="t" data-r>Recommendations</span><span class="k">games, music, videos …</span></a>
+  </nav>
 
   <section class="about" id="about">
     <div class="lab">about</div>
@@ -106,7 +43,14 @@ html{scroll-behavior:smooth}@media(prefers-reduced-motion:reduce){html{scroll-be
     <p>Recently his focus has turned to multichannel and ambisonic systems: spatial pieces in which live instruments and recorded sound share a dome, and works built from close recordings of the individual pipes of the 1457 Rysum organ, lifted out of their church and placed in a synthetic space. Grief, death and religion return again and again, along with one question: what remains of an instrument once it has left its room?</p>
   </section>
 
-  <section class="organ" id="organ">
+  <section class="live" id="live">
+    <div class="lab">live</div>
+    <ul>
+      <li><time datetime="2026-11-09">09 Nov 2026</time><span>Madame Claude, Berlin</span></li>
+    </ul>
+  </section>
+
+  <section class="organ" id="pipes">
     <div class="lab">pipes</div>
     <p class="hint">These pipes can be played. <b>Touch a pipe</b> to let it sound, touch it again to silence it.</p>
     <div class="org">
@@ -128,181 +72,19 @@ html{scroll-behavior:smooth}@media(prefers-reduced-motion:reduce){html{scroll-be
     <div class="notes" id="notes" aria-live="polite"></div>
   </section>
 
-  <section class="gal" aria-label="photographs"><figure class="ph"><img alt="photograph" src="img/photo-01.jpg" width="869" height="1300" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/album_cover-09.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-02.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/allpantophotos_0031.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-03.jpg" width="867" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-04.jpg" width="1500" height="999" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/cologne_0011.jpg" width="1500" height="1003" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-05.jpg" width="1500" height="1003" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/flashinglights_0001.jpg" width="1500" height="1003" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-06.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/guitarorgan_0002.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-07.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/laura_april_0037.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-08.jpg" width="1500" height="999" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/lea_0004.jpg" width="1500" height="1003" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-09.jpg" width="869" height="1300" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/munition_0015.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-10.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/osna_0089.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-11.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/rysum_photos_0012.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-12.jpg" width="1500" height="999" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/selfportraits_0008.jpg" width="1067" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-13.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/starsofice_0031.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-14.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/zuhaus_0009.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-15.jpg" width="915" height="1300" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-16.jpg" width="1500" height="1003" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/flashinglights_0005.jpg" width="1500" height="1003" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-17.jpg" width="865" height="1300" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/munition_0025.jpg" width="1500" height="1003" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-18.jpg" width="1500" height="999" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/osna_0094.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-19.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/selfportraits_0009.jpg" width="1095" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-20.jpg" width="869" height="1300" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/munition_0055.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-21.jpg" width="1080" height="719" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/munition_0175.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-22.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/munition_0180.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-23.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/munition_0184.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-24.jpg" width="1500" height="999" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/munition_0193.jpg" width="1003" height="1500" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/photo-25.jpg" width="1500" height="999" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/munition_0205.jpg" width="1500" height="1003" loading="lazy" decoding="async"></figure><figure class="ph"><img alt="photograph" src="img/web/munition_0234.jpg" width="999" height="1500" loading="lazy" decoding="async"></figure></section>
-
-  <section class="about bandtxt" id="band">
-    <div class="lab">band &amp; live photography</div>
-    <p>Next to the music I photograph bands and live shows. The pictures are mostly black and white and grainy: blurred movement, hard light, faces half swallowed by the dark, close to the noise of the room.</p>
-    <p>If you would like photographs of your band or your next show, write to me: <a class="m" data-u="reiteration.booking" data-d="gmail.com"></a></p>
-  </section>
-
-  <section class="gal" aria-label="band and live photographs"><figure class="ph"><img alt="Shearling, live" src="img/band/shearling-01.jpg" width="999" height="1500" loading="lazy" decoding="async" data-cap="Shearling"></figure><figure class="ph"><img alt="Shearling, live" src="img/band/shearling-02.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Shearling"></figure><figure class="ph"><img alt="Shearling, live" src="img/band/shearling-03.jpg" width="1279" height="1500" loading="lazy" decoding="async" data-cap="Shearling"></figure><figure class="ph"><img alt="Shearling, live" src="img/band/shearling-04.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Shearling"></figure><figure class="ph"><img alt="Shearling, live" src="img/band/shearling-05.jpg" width="897" height="1500" loading="lazy" decoding="async" data-cap="Shearling"></figure><figure class="ph"><img alt="Shearling, live" src="img/band/shearling-06.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Shearling"></figure><figure class="ph"><img alt="Shearling, live" src="img/band/shearling-07.jpg" width="537" height="1500" loading="lazy" decoding="async" data-cap="Shearling"></figure><figure class="ph"><img alt="Shearling, live" src="img/band/shearling-08.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Shearling"></figure><figure class="ph"><img alt="Shearling, live" src="img/band/shearling-09.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Shearling"></figure><figure class="ph"><img alt="Shearling, live" src="img/band/shearling-10.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Shearling"></figure><figure class="ph"><img alt="Shearling, live" src="img/band/shearling-11.jpg" width="999" height="1500" loading="lazy" decoding="async" data-cap="Shearling"></figure><figure class="ph"><img alt="Shearling, live" src="img/band/shearling-12.jpg" width="999" height="1500" loading="lazy" decoding="async" data-cap="Shearling"></figure><figure class="ph"><img alt="Shearling, live" src="img/band/shearling_photos_0011.jpg" width="1500" height="1003" loading="lazy" decoding="async" data-cap="Shearling"></figure><figure class="ph"><img alt="Psychic Primate, live" src="img/band/psychicprimate-01.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Psychic Primate"></figure><figure class="ph"><img alt="Psychic Primate, live" src="img/band/psychicprimate-02.jpg" width="999" height="1500" loading="lazy" decoding="async" data-cap="Psychic Primate"></figure><figure class="ph"><img alt="Psychic Primate, live" src="img/band/psychicprimate-03.jpg" width="789" height="1334" loading="lazy" decoding="async" data-cap="Psychic Primate"></figure><figure class="ph"><img alt="Psychic Primate, live" src="img/band/psychicprimate-04.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Psychic Primate"></figure><figure class="ph"><img alt="Psychic Primate, live" src="img/band/psychicprimate-05.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Psychic Primate"></figure><figure class="ph"><img alt="Psychic Primate, live" src="img/band/psychicprimate-06.jpg" width="1500" height="1003" loading="lazy" decoding="async" data-cap="Psychic Primate"></figure><figure class="ph"><img alt="Psychic Primate, live" src="img/band/psychicprimate.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Psychic Primate"></figure><figure class="ph"><img alt="Husbandry, live" src="img/band/husbandry-01.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Husbandry"></figure><figure class="ph"><img alt="Husbandry, live" src="img/band/husbandry-02.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Husbandry"></figure><figure class="ph"><img alt="Husbandry, live" src="img/band/husbandry-03.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Husbandry"></figure><figure class="ph"><img alt="Husbandry, live" src="img/band/husbandry-04.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Husbandry"></figure><figure class="ph"><img alt="Shuudr, live" src="img/band/shuudr-01.jpg" width="1500" height="1003" loading="lazy" decoding="async" data-cap="Shuudr"></figure><figure class="ph"><img alt="Shuudr, live" src="img/band/shuudr-02.jpg" width="1500" height="1003" loading="lazy" decoding="async" data-cap="Shuudr"></figure><figure class="ph"><img alt="Laura, live" src="img/band/laura.jpg" width="1003" height="1500" loading="lazy" decoding="async" data-cap="Laura"></figure></section>
-
-
-  <section class="live" id="live">
-    <div class="lab">live</div>
-    <ul>
-      <li><time datetime="2026-11-09">09 Nov 2026</time><span>Madame Claude, Berlin</span></li>
-    </ul>
-  </section>
-
-  <section class="bc"><button id="bcb" type="button">▶ Mysterii Paschalis <small>(load player · bandcamp.com)</small></button></section>
-
   <section class="contact" id="contact">
     <a class="m" data-u="reiteration.booking" data-d="gmail.com" data-r></a>
     <div class="links"><a href="https://www.youtube.com/@Reiteration-t7m" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/reiteration_n/" target="_blank" rel="noopener">Instagram</a><a href="https://reiteration.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a></div>
   </section>
-  <footer><span>© 2026 Reiteration</span><details class="imp"><summary>Impressum</summary><div>Angaben gemäß § 5 DDG<br>Christoffer Schöne<br>Storkower Straße 221<br>10367 Berlin<br>E-Mail: <a class="m" data-u="reiteration.booking" data-d="gmail.com"></a><noscript>reiteration.booking (at) gmail.com</noscript></div></details></footer>
+  <footer>
+    <span>© 2026 Reiteration</span>
+    <span class="fl"><a class="m" data-u="reiteration.booking" data-d="gmail.com"></a><a href="https://www.youtube.com/@Reiteration-t7m" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/reiteration_n/" target="_blank" rel="noopener">Instagram</a><a href="https://reiteration.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a></span>
+    <details class="imp"><summary>Impressum</summary><div>Angaben gemäß § 5 DDG<br>Christoffer Schöne<br>Storkower Straße 221<br>10367 Berlin<br>E-Mail: <a class="m" data-u="reiteration.booking" data-d="gmail.com"></a><noscript>reiteration.booking (at) gmail.com</noscript></div></details>
+  </footer>
 </main>
 
 <div id="lb" hidden><img id="lbi" alt=""><button id="lbp" aria-label="previous">‹</button><button id="lbn" aria-label="next">›</button><button id="lbx" aria-label="close">×</button><span id="lbt"></span><span id="lbc"></span></div>
-<nav id="nav" aria-label="quick links"><a href="#about">about</a><a href="#band">photography</a><a href="#live">live</a><a href="#contact">contact</a></nav>
-<button id="snd" aria-pressed="false">◌ listen <small>(headphones)</small></button>
-<audio id="au" loop preload="none" src="audio/orgel.mp3"></audio>
+<nav id="nav" aria-label="quick links"><a href="#about">about</a><a href="#live">live</a><a href="#pipes">pipes</a><a href="#contact">contact</a></nav>
 <canvas id="trail" aria-hidden="true"></canvas>
-<script>
-const $=id=>document.getElementById(id),R=document.documentElement,G="▓▒░01/\\|·";
-document.querySelectorAll(".m").forEach(a=>{const e=a.dataset.u+"@"+a.dataset.d;a.href="mailto:"+e;a.textContent=e});
-const bg=$("bg"),figs=[...document.querySelectorAll(".ph")],rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
-let last=-1,tick=false;
-function mul(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
-const rd=mul(11),pick=a=>a[rd()*a.length|0];let lw=-9;
-/* gallery: sizes and offsets are assigned automatically (stable between visits) */
-figs.forEach((f,i)=>{const im=f.firstElementChild,land=+im.getAttribute("width")>im.getAttribute("height")*1.15;
-  if(land&&i-lw>=5){f.classList.add("wide");lw=i}
-  else{f.style.setProperty("--w",(land?pick([38,44,52,58]):pick([19,23,27,31]))+"%");
-    if(rd()<.55)f.style.setProperty("--ml",pick([2,6,10,14])+"%");
-    f.style.setProperty("--mt",pick([0,4,9,14])+"vh")}
-  f._s=rm?0:rd()*.14-.04;f._y=0});
-function frame(){tick=false;const vh=innerHeight,m=R.scrollHeight-vh,d=Math.min(1,Math.max(0,scrollY/Math.max(1,m)));
-  if(Math.abs(d-last)>=.004){last=d;R.style.setProperty("--d",d);
-    bg.style.filter=`grayscale(1) brightness(${.4+d*.1}) contrast(${1+d*.9})`}
-  for(const f of figs){const r=f.getBoundingClientRect(),c=r.top+r.height/2-f._y,off=c-vh/2;
-    if(Math.abs(off)>vh*1.6)continue;
-    const y=-off*f._s;f._y=y;f.style.transform=`translateY(${y.toFixed(1)}px)`;
-    const dist=Math.min(1,Math.abs(c+y-vh/2)/(vh*.7));f.style.setProperty("--b",(.3+.7*Math.pow(1-dist,1.3)).toFixed(2))}}
-addEventListener("scroll",()=>{if(!tick){tick=true;requestAnimationFrame(frame)}},{passive:true});
-addEventListener("resize",frame);addEventListener("load",frame);frame();
-/* scramble on hover: each letter keeps its place, the glitch glyph is drawn on top, so the line never changes size */
-document.querySelectorAll("[data-r]").forEach(el=>{const o=el.textContent;let t;el.setAttribute("aria-label",o);el.textContent="";
-  const sp=[...o].map(c=>{const s=document.createElement("span");s.textContent=c;s.setAttribute("aria-hidden","true");el.appendChild(s);return s});
-  const clear=()=>sp.forEach(s=>s.classList.remove("x"));
-  el.addEventListener("mouseenter",()=>{let i=0;clearInterval(t);t=setInterval(()=>{
-    sp.forEach(s=>{if(s.textContent!==" "&&Math.random()<=.12+i*.04){s.dataset.g=G[Math.random()*G.length|0];s.classList.add("x")}else s.classList.remove("x")});
-    if(++i>14){clearInterval(t);clear()}},60)})});
-/* photo viewer: click = open, click again = zoom (move to pan), arrows/swipe = next, esc = close */
-/* each gallery is browsed on its own; band photos show the band name (data-cap) */
-const all=[...document.querySelectorAll(".ph img")],lb=$("lb"),li=$("lbi");let ph=all,ci=0;
-function show(i){ci=(i+ph.length)%ph.length;li.src=ph[ci].src;lb.classList.remove("z");li.style.transformOrigin="50% 50%";
-  $("lbt").textContent=ph[ci].dataset.cap||"";$("lbc").textContent=(ci+1)+" / "+ph.length;lb.hidden=false;document.body.style.overflow="hidden"}
-function shut(){lb.hidden=true;document.body.style.overflow=""}
-all.forEach((im,i)=>im.onclick=()=>{ph=[...im.closest(".gal").querySelectorAll(".ph img")];show(ph.indexOf(im));Organ.once(i%Organ.n)});
-$("lbx").onclick=shut;$("lbp").onclick=()=>show(ci-1);$("lbn").onclick=()=>show(ci+1);
-lb.onclick=e=>{if(e.target===lb)shut()};
-li.onclick=()=>lb.classList.toggle("z");
-const pan=(x,y)=>{if(lb.classList.contains("z"))li.style.transformOrigin=`${x/innerWidth*100}% ${y/innerHeight*100}%`};
-lb.onmousemove=e=>pan(e.clientX,e.clientY);
-let sx=0;lb.addEventListener("touchstart",e=>{sx=e.touches[0].clientX},{passive:true});
-lb.addEventListener("touchmove",e=>pan(e.touches[0].clientX,e.touches[0].clientY),{passive:true});
-lb.addEventListener("touchend",e=>{if(lb.classList.contains("z"))return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>60)show(ci+(dx<0?1:-1))});
-addEventListener("keydown",e=>{if(lb.hidden)return;if(e.key==="Escape")shut();if(e.key==="ArrowLeft")show(ci-1);if(e.key==="ArrowRight")show(ci+1)});
-$("bcb").onclick=function(){const f=document.createElement("iframe");f.src="https://bandcamp.com/EmbeddedPlayer/album=2392678967/size=small/bgcol=050505/linkcol=d9d6cf/track=1443381737/transparent=true/";f.title="Mysterii Paschalis – Reiteration";f.allow="autoplay";this.replaceWith(f)};
-document.querySelectorAll("#nav a").forEach(a=>a.onclick=e=>{e.preventDefault();document.querySelector(a.getAttribute("href")).scrollIntoView({behavior:rm?"auto":"smooth",block:"start"})});
-const au=$("au"),sb=$("snd");
-sb.onclick=()=>{if(au.paused){au.play().catch(()=>{});sb.firstChild.textContent="● listening ";sb.setAttribute("aria-pressed","true")}else{au.pause();sb.firstChild.textContent="◌ listen ";sb.setAttribute("aria-pressed","false")}};
-
-/* ---------- PIPES ----------
-   One sample per pipe, left (longest, lowest) to right (shortest, highest).
-   hz = pitch shown under the organ, ls/le = where the held part of the note starts/ends (seconds, used for the loop),
-   gain = level match between the recordings. If a file is missing, a soft synthesized tone at hz stands in.
-   Every time a pipe sounds it gets a random place in the stereo field and a random amount and size of reverb. */
-const PIPES=[
-  {file:"audio/pipes/pipe-01.wav",hz:198.7,ls:0.45,le:4.25,gain:0.63},
-  {file:"audio/pipes/pipe-02.wav",hz:222.3,ls:0.35,le:4.05,gain:0.89},
-  {file:"audio/pipes/pipe-03.wav",hz:248.6,ls:0.35,le:4.9, gain:1.79},
-  {file:"audio/pipes/pipe-04.wav",hz:266.9,ls:0.5, le:4.25,gain:1.16},
-  {file:"audio/pipes/pipe-05.wav",hz:318.7,ls:0.4, le:4.15,gain:0.62},
-  {file:"audio/pipes/pipe-06.wav",hz:355.9,ls:0.35,le:4.55,gain:0.6},
-  {file:"audio/pipes/pipe-07.wav",hz:398.0,ls:0.35,le:3.75,gain:0.6},
-  {file:"audio/pipes/pipe-08.wav",hz:444.7,ls:0.5, le:3.65,gain:0.67},
-  {file:"audio/pipes/pipe-09.wav",hz:475.7,ls:0.35,le:4.2, gain:0.73},
-  {file:"audio/pipes/pipe-10.wav",hz:498.0,ls:0.35,le:3.85,gain:0.76},
-  {file:"audio/pipes/pipe-11.wav",hz:636.9,ls:0.35,le:4.35,gain:1.15}];
-PIPES.forEach(p=>p.note=Math.round(p.hz)+" Hz");
-const Organ=(()=>{
-  let ac,out,rooms;const buf=[],live={},local=location.protocol==="file:";
-  /* three synthetic rooms: small chamber, hall, stone church */
-  function room(sec,dark){const n=Math.floor(ac.sampleRate*sec),b=ac.createBuffer(2,n,ac.sampleRate);
-    for(let c=0;c<2;c++){const d=b.getChannelData(c);let lp=0;
-      for(let k=0;k<n;k++){const t=k/n,a=Math.min(1,k/(ac.sampleRate*.012)),f=.85-dark*t*.75;lp+=((Math.random()*2-1)-lp)*f;d[k]=lp*a*Math.pow(1-t,2.2)*Math.exp(-t*3)}
-      let e=0;for(let k=0;k<n;k++)e+=d[k]*d[k];e=1/Math.sqrt(e);for(let k=0;k<n;k++)d[k]*=e}
-    const cv=ac.createConvolver();cv.normalize=false;cv.buffer=b;const g=ac.createGain();g.gain.value=1;cv.connect(g);g.connect(out);return cv}
-  function ctx(){if(!ac){ac=new(window.AudioContext||window.webkitAudioContext)();out=ac.createGain();out.gain.value=.45;
-      const c=ac.createDynamicsCompressor();c.threshold.value=-12;c.knee.value=6;c.ratio.value=20;c.attack.value=.003;c.release.value=.25;out.connect(c);c.connect(ac.destination);
-      rooms=[room(1.4,.3),room(3.6,.6),room(7.5,.85)]}
-    if(ac.state==="suspended")ac.resume();return ac}
-  /* buf[i]: undefined = not tried, Promise = loading, AudioBuffer = ok, "el" = use <audio> (file://), null = synth */
-  function load(i){if(buf[i]!==undefined)return Promise.resolve(buf[i]);
-    if(local)return buf[i]=new Promise(r=>{const a=new Audio();a.preload="auto";a.oncanplaythrough=()=>{a.oncanplaythrough=null;r(buf[i]="el")};a.onerror=()=>r(buf[i]=null);a.src=PIPES[i].file});
-    return buf[i]=fetch(PIPES[i].file).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).then(b=>new Promise((ok,no)=>ctx().decodeAudioData(b,ok,no)))
-      .then(b=>buf[i]=b).catch(()=>buf[i]=null)}
-  const env=(g,t,to,dur)=>{g.gain.cancelScheduledValues(t);g.gain.setValueAtTime(g.gain.value,t);g.gain.linearRampToValueAtTime(to,t+dur)};
-  /* random place: pan -0.9…0.9, a random room, wet 5–85 % */
-  function place(g){const pan=Math.random()*1.8-.9,wet=.05+Math.pow(Math.random(),1.3)*.8;let p;
-    if(ac.createStereoPanner){p=ac.createStereoPanner();p.pan.value=pan}else{p=ac.createPanner();p.panningModel="equalpower";p.setPosition(pan,0,1-Math.abs(pan))}
-    const dry=ac.createGain(),send=ac.createGain();dry.gain.value=1-wet*.55;send.gain.value=wet;
-    g.connect(p);p.connect(dry);dry.connect(out);p.connect(send);send.connect(rooms[Math.random()*rooms.length|0])}
-  /* synthesized flue pipe: a few soft harmonics plus a little wind */
-  function synth(i,g){const t=ac.currentTime,o=ac.createOscillator(),w=ac.createPeriodicWave(new Float32Array([0,0,0,0,0,0]),new Float32Array([0,1,.42,.2,.09,.05]));
-    o.setPeriodicWave(w);o.frequency.value=PIPES[i].hz;const lp=ac.createBiquadFilter();lp.frequency.value=PIPES[i].hz*5;
-    const n=ac.createBufferSource(),nb=ac.createBuffer(1,ac.sampleRate,ac.sampleRate),d=nb.getChannelData(0);for(let k=0;k<d.length;k++)d[k]=Math.random()*2-1;
-    n.buffer=nb;n.loop=true;const bp=ac.createBiquadFilter();bp.type="bandpass";bp.frequency.value=PIPES[i].hz*2;bp.Q.value=2;const ng=ac.createGain();ng.gain.value=.05;
-    o.connect(lp);lp.connect(g);n.connect(bp);bp.connect(ng);ng.connect(g);o.start(t);n.start(t);return[o,n]}
-  /* sample loop: plays the attack once, then repeats the held part with short crossfades so there is no click */
-  function looper(i,b,g){const d=b.duration,P=PIPES[i],ls=Math.min(P.ls??.5,d*.4),le=Math.min(P.le??d-.35,d),xf=Math.min(.3,(le-ls)/3),srcs=[];
-    let T=ac.currentTime;const seg=(off,len,fadeIn)=>{const s=ac.createBufferSource(),sg=ac.createGain();s.buffer=b;s.connect(sg);sg.connect(g);
-      sg.gain.setValueAtTime(fadeIn?0:1,T);if(fadeIn)sg.gain.linearRampToValueAtTime(1,T+xf);
-      sg.gain.setValueAtTime(1,T+len-xf);sg.gain.linearRampToValueAtTime(0,T+len);s.start(T,off,len);srcs.push(s);
-      s.onended=()=>srcs.splice(srcs.indexOf(s),1);T+=len-xf};
-    seg(0,le,false);const iv=setInterval(()=>{while(T<ac.currentTime+1.2)seg(ls,le-ls,true)},250);
-    return{stop(){clearInterval(iv);srcs.slice().forEach(s=>{try{s.stop(ac.currentTime+.6)}catch(e){}})}}}
-  function elVoice(i){const a=new Audio(PIPES[i].file);a.loop=true;a.volume=0;a.play().catch(()=>{});let v=0;const up=setInterval(()=>{v=Math.min(1,v+.08);a.volume=v;if(v>=1)clearInterval(up)},30);
-    return{stop(){clearInterval(up);const dn=setInterval(()=>{v=Math.max(0,v-.06);a.volume=v;if(!v){clearInterval(dn);a.pause()}},30)}}}
-  async function voice(i,level){ctx();const b=await load(i);
-    if(b==="el")return elVoice(i);
-    const g=ac.createGain(),to=level*(b?PIPES[i].gain||1:1);g.gain.value=0;place(g);env(g,ac.currentTime,to,.08);
-    let h;if(b){h=looper(i,b,g)}else{const n=synth(i,g);h={stop(){n.forEach(x=>x.stop(ac.currentTime+.6))}}}
-    return{stop(){if(ac)env(g,ac.currentTime,0,.5);h.stop()}}}
-  return{n:PIPES.length,
-    async toggle(i){if(live[i]){const v=live[i];live[i]=null;(await v).stop();return false}
-      live[i]=voice(i,.3);return true},
-    async once(i){const v=await voice(i,.22);setTimeout(()=>v.stop(),2200)},
-    preload(){PIPES.forEach((_,i)=>load(i))}}})();
-const polys=[...document.querySelectorAll(".org polygon")],notes=$("notes");
-const showNotes=()=>{notes.textContent=polys.map((p,i)=>p.classList.contains("on")?PIPES[i].note:"").filter(Boolean).join("  ·  ")};
-polys.forEach((p,i)=>{p.setAttribute("tabindex","0");p.setAttribute("role","button");p.setAttribute("aria-label","pipe "+(i+1)+", "+PIPES[i].note);p.setAttribute("aria-pressed","false");
-  const hit=async()=>{const on=!p.classList.contains("on");p.classList.toggle("on",on);p.setAttribute("aria-pressed",on);showNotes();await Organ.toggle(i)};
-  p.addEventListener("click",hit);p.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();hit()}})});
-addEventListener("pointerdown",()=>Organ.preload(),{once:true});
-
-/* easter egg: the eye does not like being clicked */
-(()=>{const e=$("eye"),m=$("eyemsg");let t;e.addEventListener("click",ev=>{ev.stopPropagation();m.hidden=false;m.style.animation="none";void m.offsetWidth;m.style.animation="";
-  clearTimeout(t);t=setTimeout(()=>m.hidden=true,2600)});addEventListener("click",()=>{m.hidden=true})})();
-
-/* ---------- GRAIN TRAIL: the cursor leaves a fading smear of grain ---------- */
-(()=>{const cv=$("trail"),c=cv.getContext("2d");let pts=[],dpr=1,run=false,lx=null,ly=null;
-  const size=()=>{dpr=Math.min(2,devicePixelRatio||1);cv.width=innerWidth*dpr;cv.height=innerHeight*dpr};size();addEventListener("resize",size);
-  addEventListener("pointermove",e=>{if(e.pointerType==="touch")return;const x=e.clientX,y=e.clientY,now=performance.now();
-    if(lx===null){lx=x;ly=y}const dx=x-lx,dy=y-ly,steps=Math.max(1,Math.hypot(dx,dy)/6|0);
-    for(let k=1;k<=steps;k++)pts.push({x:lx+dx*k/steps,y:ly+dy*k/steps,t:now,r:8+Math.random()*16});
-    lx=x;ly=y;if(pts.length>260)pts.splice(0,pts.length-260);if(!run){run=true;requestAnimationFrame(draw)}},{passive:true});
-  document.addEventListener("pointerleave",()=>{lx=ly=null});
-  function draw(now){c.clearRect(0,0,cv.width,cv.height);pts=pts.filter(p=>now-p.t<1100);
-    for(const p of pts){const age=(now-p.t)/1100,a=1-age,n=rm?4:9,spread=p.r*(.5+age*1.4);
-      for(let k=0;k<n;k++){const ang=Math.random()*6.283,rr=Math.random()*spread,s=(Math.random()<.8?1:2)*dpr;
-        c.fillStyle=Math.random()<.55?`rgba(232,228,220,${(a*.75).toFixed(3)})`:`rgba(0,0,0,${(a*.85).toFixed(3)})`;
-        c.fillRect((p.x+Math.cos(ang)*rr)*dpr,(p.y+Math.sin(ang)*rr)*dpr,s,s)}}
-    if(pts.length)requestAnimationFrame(draw);else{run=false;c.clearRect(0,0,cv.width,cv.height)}}})();
-</script>
 </body>
 </html>

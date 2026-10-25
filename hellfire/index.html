@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" data-root="../" data-bg="color" data-bright=".2" data-trail="208,26,32">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>There's a Hellfire beyond the Darkness of your Eyes — Reiteration</title>
+<meta name="description" content="There's a Hellfire beyond the Darkness of your Eyes – the first album by Reiteration.">
+<link rel="icon" href="../img/logo.jpg">
+<link rel="stylesheet" href="../assets/site.css">
+<style>#bg{background-image:url(../img/hellfire/painting.jpg)}
+:root{--acc:#d01a20}
+::selection{background:#b3151a;color:#fff}
+#bg{background-position:50% 30%}
+.solo{justify-content:center;margin-top:10vh}
+.solo .ph{--fe:9%;width:min(100%,640px)}
+.solo .ph img{filter:brightness(var(--b,.6)) contrast(1.05)}
+.solo .ph img:hover{filter:brightness(1.08) contrast(1.05)}
+.hfl{display:flex;gap:2rem;flex-wrap:wrap;align-items:center;margin-top:2.5rem;font-style:normal}
+.hfl a{letter-spacing:.2em;text-transform:uppercase;font-size:13px}
+</style>
+<script src="../assets/site.js" defer></script>
+<script src="../assets/organ.js" defer></script>
+</head>
+<body>
+<div id="bg"></div><div class="scan"></div><div class="grain"></div>
+<main>
+  <header class="hero small">
+    <a class="crumb" href="../">← Reiteration</a>
+    <div class="brand"><img class="logo" id="eye" src="../img/logo.jpg" alt="Reiteration logo"><div id="eyemsg" role="status" hidden>Stop clicking my eye</div><h1 data-r>There's a Hellfire beyond the Darkness of your Eyes</h1></div>
+    <div class="sub">first album</div>
+  </header>
+
+  <section class="gal solo" aria-label="album artwork"><figure class="ph" data-fixed><img alt="red and black painting, the artwork of the album" src="../img/hellfire/painting.jpg" width="892" height="1370" decoding="async"></figure></section>
+
+  <section class="about" id="album">
+    <div class="lab">the album</div>
+    <!-- TEXT ÜBER DAS ALBUM: hier ändern -->
+    <p>The first album. Red pressed into black until neither gives way: a fire that can only be seen because of the dark around it.</p>
+    <!-- BANDCAMP-PLAYER: im data-bc unten album=… durch die Album-ID aus dem Bandcamp-Einbettungscode ersetzen
+         und das hidden entfernen. Album-Link in href="…" eintragen. -->
+    <div class="bc hfl"><button type="button" hidden data-big data-bc="https://bandcamp.com/EmbeddedPlayer/album=ALBUM_ID/size=large/bgcol=050505/linkcol=d01a20/tracklist=true/artwork=none/transparent=true/" data-title="There's a Hellfire beyond the Darkness of your Eyes – Reiteration">▶ Listen <small>(load player · bandcamp.com)</small></button><a href="https://reiteration.bandcamp.com/" target="_blank" rel="noopener">on Bandcamp ↗</a></div>
+  </section>
+  <footer>
+    <span>© 2026 Reiteration</span>
+    <span class="fl"><a class="m" data-u="reiteration.booking" data-d="gmail.com"></a><a href="https://www.youtube.com/@Reiteration-t7m" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/reiteration_n/" target="_blank" rel="noopener">Instagram</a><a href="https://reiteration.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a></span>
+    <details class="imp"><summary>Impressum</summary><div>Angaben gemäß § 5 DDG<br>Christoffer Schöne<br>Storkower Straße 221<br>10367 Berlin<br>E-Mail: <a class="m" data-u="reiteration.booking" data-d="gmail.com"></a><noscript>reiteration.booking (at) gmail.com</noscript></div></details>
+  </footer>
+</main>
+
+<div id="lb" hidden><img id="lbi" alt=""><button id="lbp" aria-label="previous">‹</button><button id="lbn" aria-label="next">›</button><button id="lbx" aria-label="close">×</button><span id="lbt"></span><span id="lbc"></span></div>
+<nav id="nav" aria-label="quick links"><a href="../">home</a><a href="#album">the album</a></nav>
+<canvas id="trail" aria-hidden="true"></canvas>
+</body>
+</html>
