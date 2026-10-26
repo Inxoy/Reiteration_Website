@@ -46,7 +46,11 @@ document.querySelectorAll("[data-r]").forEach(el=>{const o=el.textContent;let t;
   function show(i){ci=(i+ph.length)%ph.length;li.src=ph[ci].src;lb.classList.remove("z");li.style.transformOrigin="50% 50%";
     $("lbt").textContent=ph[ci].dataset.cap||"";$("lbc").textContent=(ci+1)+" / "+ph.length;lb.hidden=false;document.body.style.overflow="hidden"}
   function shut(){lb.hidden=true;document.body.style.overflow=""}
-  all.forEach((im,i)=>im.onclick=()=>{ph=[...im.closest(".gal").querySelectorAll(".ph img")];show(ph.indexOf(im));if(window.Organ)Organ.once(i%Organ.n)});
+  all.forEach((im,i)=>im.onclick=()=>{if(im.dataset.egg)return portal(im);ph=[...im.closest(".gal").querySelectorAll(".ph img")];show(ph.indexOf(im));if(window.Organ)Organ.once(i%Organ.n)});
+  /* hidden easter egg: a photo with data-egg="URL" does not open the viewer – the screen tears and a friend's site opens in a new tab */
+  function portal(im){const v=document.createElement("div");v.className="tear";document.body.appendChild(v);
+    const w=window.open("about:blank","_blank");if(w)w.opener=null;
+    setTimeout(()=>{if(w)w.location.href=im.dataset.egg;else location.href=im.dataset.egg},650);setTimeout(()=>v.remove(),1100)}
   $("lbx").onclick=shut;$("lbp").onclick=()=>show(ci-1);$("lbn").onclick=()=>show(ci+1);
   lb.onclick=e=>{if(e.target===lb)shut()};li.onclick=()=>lb.classList.toggle("z");
   const pan=(x,y)=>{if(lb.classList.contains("z"))li.style.transformOrigin=`${x/innerWidth*100}% ${y/innerHeight*100}%`};
