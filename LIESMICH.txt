@@ -5,6 +5,7 @@ AUFBAU
   mariia-iii/index.html         Album "Mariia III": Albumtext, Fotogalerie, Mysterii Paschalis
   photography/index.html        Band- & Livefotografie (Bandname per data-cap)
   hellfire/index.html           Erstes Album "There's a Hellfire beyond the Darkness of your Eyes" (rot/schwarz)
+  rysum/index.html              Rysum-Orgel-Plugin (in Entwicklung, Text/Bilder folgen)
   live/index.html               Live Performance: Haltung/Philosophie, vergangene Auftritte, Fotos, Booking
   recommendations/index.html    Empfehlungen (Spiele, Musik, Videos …)
   assets/site.css               Aussehen, für alle Seiten gemeinsam
@@ -25,6 +26,7 @@ TEXT ÄNDERN (Dateien mit Texteditor öffnen: VS Code, Notepad++ – nicht Word)
   Albumtext:      mariia-iii/index.html, Strg+F "Mariia III is an album"
   Hellfire-Text:  hellfire/index.html, Strg+F "TEXT ÜBER DAS ALBUM"
   Hellfire-Player: hellfire/index.html, Strg+F "BANDCAMP-PLAYER" – Anleitung steht dort.
+  Rysum-Plugin:   rysum/index.html, Strg+F "TEXT ÜBER DAS PLUGIN"
   Live-Seite:     live/index.html – Absätze unter "philosophy", Auftritte unter "past performances"
                   (pro Auftritt ein <li>…</li>-Block, kopieren und anpassen)
   Empfehlungen:   recommendations/index.html, Strg+F "NEUE EMPFEHLUNG" – Vorlage zum Kopieren steht dort.
@@ -49,5 +51,7 @@ ORGELPFEIFEN (Startseite)
   Klänge: audio/pipes/pipe-01.wav … pipe-11.wav (pipe-01 = 199 Hz = längste Pfeife links).
   Einstellungen in assets/organ.js unter "const PIPES" (hz, Loop-Punkte ls/le, Lautstärke gain).
   Jeder Ton bekommt zufällig einen Platz im Stereobild und Hall aus einem von drei Räumen.
+
+VERSTECKT: Ein Foto mit data-egg="URL" öffnet beim Anklicken statt der Ansicht die Seite eines Freundes (derzeit photo-22 auf Mariia III).
 
 ONLINE: über GitHub (Inxoy/Reiteration_Website) → GitHub Pages → reiteration.de. Datei CNAME nicht löschen.
