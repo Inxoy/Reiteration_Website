@@ -5,7 +5,7 @@ AUFBAU
   mariia-iii/index.html         Album "Mariia III": Albumtext, Fotogalerie, Mysterii Paschalis
   photography/index.html        Band- & Livefotografie (Bandname per data-cap)
   hellfire/index.html           Erstes Album "There's a Hellfire beyond the Darkness of your Eyes" (rot/schwarz)
-  rysum/index.html              Rysum-Orgel-Plugin (in Entwicklung, Text/Bilder folgen)
+  rysum/index.html              Rysum-Orgel-Plugin (in Entwicklung; Text + 5 Screenshots)
   live/index.html               Live Performance: Haltung/Philosophie, vergangene Auftritte, Fotos, Booking
   recommendations/index.html    Empfehlungen (Spiele, Musik, Videos …)
   assets/site.css               Aussehen, für alle Seiten gemeinsam
@@ -55,3 +55,8 @@ ORGELPFEIFEN (Startseite)
 VERSTECKT: Ein Foto mit data-egg="URL" öffnet beim Anklicken statt der Ansicht die Seite eines Freundes (derzeit photo-22 auf Mariia III).
 
 ONLINE: über GitHub (Inxoy/Reiteration_Website) → GitHub Pages → reiteration.de. Datei CNAME nicht löschen.
+
+PLUGIN-SCREENSHOTS (rysum/index.html)
+  Originale liegen in img/rysum_plugin/ (nur auf diesem Computer), die Web-Kopien in img/web/rysum-plugin-*.jpg.
+  Neues Bild: als JPG nach img/web/ legen und in rysum/index.html im Abschnitt "plugin screenshots" eine <figure class="ph shot" data-fixed>-Zeile kopieren.
+  data-cap = Titel in der Großansicht, <figcaption> = kleiner Text im Bild. Das erste Bild geht über die volle Breite, die übrigen stehen zu zweit nebeneinander.
