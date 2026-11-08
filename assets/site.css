@@ -127,3 +127,9 @@ footer .fl{display:flex;gap:1.4rem;flex-wrap:wrap}
 .shots .ph::after{background:radial-gradient(ellipse 90% 90% at 50% 50%,transparent 70%,rgba(0,0,0,.35) 100%)}
 .shots figcaption{position:absolute;left:3%;bottom:2.5%;color:var(--dim);letter-spacing:.3em;text-transform:uppercase;font-size:11px;text-shadow:0 0 8px #000;pointer-events:none;z-index:2}
 @media(max-width:700px){.shots{grid-template-columns:1fr}.shots .ph{width:100%!important;margin:0!important}}
+
+/* language switch (about / press bios) */
+.lang{margin-left:1rem;letter-spacing:.2em}
+.lang button{background:none;border:0;padding:0;font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--dim);cursor:pointer;border-bottom:1px solid transparent}
+.lang button[aria-pressed=true]{color:var(--fg);border-color:var(--dim)}
+.lang button:hover{color:var(--fg)}

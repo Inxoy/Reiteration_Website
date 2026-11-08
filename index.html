@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Reiteration</title>
 <meta name="description" content="Reiteration – composer and artist in Berlin. Meantone pipe organ, just intonation guitar, ambisonics.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Reiteration">
+<meta property="og:title" content="Reiteration">
+<meta property="og:description" content="Reiteration – composer and artist in Berlin. Meantone pipe organ, just intonation guitar, ambisonics.">
+<meta property="og:url" content="https://reiteration.de/">
+<meta property="og:image" content="https://reiteration.de/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Reiteration">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://reiteration.de/">
 <link rel="icon" href="img/logo.jpg">
 <link rel="stylesheet" href="assets/site.css">
 <style>#bg{background-image:url(img/bg-home.jpg)}
@@ -34,15 +45,30 @@
     <a class="hf" href="hellfire/"><span class="n">02</span><span class="t" data-r>There's a Hellfire beyond the Darkness of your Eyes</span><span class="k">first album</span></a>
     <a href="live/"><span class="n">03</span><span class="t" data-r>Live Performance</span><span class="k">philosophy &amp; past performances</span></a>
     <a href="photography/"><span class="n">04</span><span class="t" data-r>Band &amp; Live Photography</span><span class="k">black &amp; white, grainy</span></a>
-    <a href="rysum/"><span class="n">05</span><span class="t" data-r>Rysum Pipe Organ Plugin</span><span class="k">in development</span></a>
-    <a href="recommendations/"><span class="n">06</span><span class="t" data-r>Recommendations</span><span class="k">games, music, videos …</span></a>
+    <a href="series/"><span class="n">05</span><span class="t" data-r>Photo Series</span><span class="k">munition, self-portraits, portraits …</span></a>
+    <a href="rysum/"><span class="n">06</span><span class="t" data-r>Rysum Pipe Organ Plugin</span><span class="k">in development</span></a>
+    <a href="recommendations/"><span class="n">07</span><span class="t" data-r>Recommendations</span><span class="k">games, music, films, books …</span></a>
+    <a href="press/"><span class="n">08</span><span class="t" data-r>Press</span><span class="k">bio, rider, photos</span></a>
   </nav>
 
   <section class="about" id="about">
-    <div class="lab">about</div>
+    <div class="lab">about <span class="lang"><button type="button" data-l="en" aria-pressed="true">english</button> / <button type="button" data-l="de" aria-pressed="false">deutsch</button></span></div>
+    <div lang="en" class="bio">
     <p>Reiteration is the name under which Christoffer Schöne, a composer living in Berlin, performs. His music grows out of the meantone pipe organ, the just intonation guitar and experimental techniques, and it is shaped as much by performance as by composition.</p>
     <p>Recently his focus has turned to multichannel and ambisonic systems: spatial pieces in which live instruments and recorded sound share a dome, and works built from close recordings of the individual pipes of the 1442 Rysum organ, lifted out of their church and placed in a synthetic space. Grief, death and religion return again and again, along with one question: what remains of an instrument once it has left its room?</p>
+    </div>
+    <div lang="de" class="bio" hidden>
+    <p>Reiteration ist der Name, unter dem Christoffer Schöne, ein in Berlin lebender Komponist, auftritt. Seine Musik wächst aus der mitteltönigen Pfeifenorgel, der rein gestimmten Gitarre und experimentellen Spieltechniken, und sie wird von der Performance ebenso geformt wie von der Komposition.</p>
+    <p>Zuletzt hat sich sein Fokus auf Mehrkanal- und Ambisonics-Systeme verlagert: räumliche Stücke, in denen Live-Instrumente und aufgenommener Klang sich eine Kuppel teilen, und Arbeiten aus Nahaufnahmen der einzelnen Pfeifen der Rysumer Orgel von 1442, herausgelöst aus ihrer Kirche und in einen synthetischen Raum versetzt. Trauer, Tod und Religion kehren immer wieder, und mit ihnen eine Frage: Was bleibt von einem Instrument, wenn es seinen Raum verlassen hat?</p>
+    </div>
   </section>
+<script>
+/* about: switch between english and german (choice is remembered in this browser) */
+addEventListener("DOMContentLoaded",()=>{const bs=[...document.querySelectorAll(".lang button")],bios=[...document.querySelectorAll(".bio")];
+  const set=l=>{bios.forEach(b=>b.hidden=b.lang!==l);bs.forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===l));try{localStorage.setItem("lang",l)}catch(e){}};
+  bs.forEach(b=>b.onclick=()=>set(b.dataset.l));let s=null;try{s=localStorage.getItem("lang")}catch(e){}
+  if(s==="de")set("de")});
+</script>
 
   <section class="live" id="live">
     <div class="lab">live</div>
@@ -79,7 +105,7 @@
   </section>
   <footer>
     <span>© 2026 Reiteration</span>
-    <span class="fl"><a class="m" data-u="reiteration.booking" data-d="gmail.com"></a><a href="https://www.youtube.com/@Reiteration-t7m" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/reiteration_n/" target="_blank" rel="noopener">Instagram</a><a href="https://reiteration.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a></span>
+    <span class="fl"><a class="m" data-u="reiteration.booking" data-d="gmail.com"></a><a href="https://www.youtube.com/@Reiteration-t7m" target="_blank" rel="noopener">YouTube</a><a href="https://www.instagram.com/reiteration_n/" target="_blank" rel="noopener">Instagram</a><a href="https://reiteration.bandcamp.com/" target="_blank" rel="noopener">Bandcamp</a><a href="press/">Press</a></span>
     <details class="imp"><summary>Impressum</summary><div>Angaben gemäß § 5 DDG<br>Christoffer Schöne<br>Storkower Straße 221<br>10367 Berlin<br>E-Mail: <a class="m" data-u="reiteration.booking" data-d="gmail.com"></a><noscript>reiteration.booking (at) gmail.com</noscript></div></details>
   </footer>
 </main>
