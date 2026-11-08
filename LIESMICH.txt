@@ -4,7 +4,7 @@ AUFBAU
   index.html                    Startseite: Name, Links zu den Unterseiten, About (Bio), Live-Termine, Orgelpfeifen, Kontakt
   mariia-iii/index.html         Album "Mariia III": Albumtext, Fotogalerie, Mysterii Paschalis
   series/index.html      Fotoserien (Munition, Self-Portraits, Portraits …), jede Serie mit eigener Galerie
- press/index.html       Presse: Bio kurz/lang (EN/DE, mit Kopier-Knopf), Technical Rider, Pressefotos zum Download
+ press/index.html       Presse: Bio kurz/lang (EN/DE, mit Kopier-Knopf), Technical Rider, Pressefotos zum Download (img/press/: press-N.jpg = Ansicht, reiteration-press-N.jpg = Download, plus ZIP)
  photography/index.html        Band- & Livefotografie (Bandname per data-cap)
   hellfire/index.html           Erstes Album "There's a Hellfire beyond the Darkness of your Eyes" (rot/schwarz)
   rysum/index.html              Rysum-Orgel-Plugin (in Entwicklung; Text + 5 Screenshots)

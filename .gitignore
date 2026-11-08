@@ -28,3 +28,10 @@ img/rysum_plugin/
 /img/selfportraits_0009.jpg
 /img/starsofice_0031.jpg
 /img/zuhaus_0009.jpg
+
+# press photo originals (the website uses the copies in img/press/)
+press/drive-download-*/
+press/*.zip
+
+# photo series page: private for now, stays on this computer only (not uploaded to the website)
+series/
