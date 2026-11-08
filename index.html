@@ -19,7 +19,13 @@
 <link rel="icon" href="img/logo.jpg">
 <link rel="stylesheet" href="assets/site.css">
 <style>#bg{background-image:url(img/bg-home.jpg)}
-.idx{margin-top:12vh;max-width:1100px}
+.intro{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:0 5vw;align-items:start;margin-top:11vh}
+.intro>section{margin-top:0}
+.intro .about{margin-left:0;max-width:56ch;font-size:clamp(19px,1.75vw,24px)}
+.intro .organ .hint{font-size:clamp(19px,1.9vw,25px);margin-bottom:1.6rem}
+.intro .org{margin-left:0;width:min(100%,430px)}
+@media(max-width:900px){.intro{grid-template-columns:1fr}.intro .organ{margin-top:10vh}.intro .org{width:min(100%,520px)}}
+.idx{margin-top:18vh;max-width:1100px}
 .idx a{display:grid;grid-template-columns:4.5rem 1fr;align-items:baseline;gap:0 1rem;border:0;border-top:1px solid #3a3735;padding:1.5rem 0 1.4rem;text-shadow:0 0 14px #000;transition:padding .5s,background .5s}
 .idx a:last-child{border-bottom:1px solid #3a3735}
 .idx a:hover{padding-left:1.2rem;background:linear-gradient(90deg,rgba(0,0,0,.55),transparent 70%)}
@@ -40,19 +46,7 @@
     <div class="sub">composer &nbsp;/&nbsp; Artist &nbsp;/&nbsp; berlin</div>
   </header>
 
-  <nav class="idx" aria-label="pages">
-    <a href="mariia-iii/"><span class="n">01</span><span class="t" data-r>Mariia III</span><span class="k">album</span></a>
-    <a class="hf" href="hellfire/"><span class="n">02</span><span class="t" data-r>There's a Hellfire beyond the Darkness of your Eyes</span><span class="k">first album</span></a>
-    <a href="live/"><span class="n">03</span><span class="t" data-r>Live Performance</span><span class="k">philosophy &amp; past performances</span></a>
-    <a href="photography/"><span class="n">04</span><span class="t" data-r>Band &amp; Live Photography</span><span class="k">black &amp; white, grainy</span></a>
-    <!-- PRIVAT: Fotoserien vorerst versteckt. Zum Freischalten diese Zeile wieder aktivieren, Nummern anpassen
-         und "series/" aus .gitignore löschen.
-    <a href="series/"><span class="n">05</span><span class="t" data-r>Photo Series</span><span class="k">munition, self-portraits, portraits …</span></a> -->
-    <a href="rysum/"><span class="n">05</span><span class="t" data-r>Rysum Pipe Organ Plugin</span><span class="k">in development</span></a>
-    <a href="recommendations/"><span class="n">06</span><span class="t" data-r>Recommendations</span><span class="k">games, music, films, books …</span></a>
-    <a href="press/"><span class="n">07</span><span class="t" data-r>Press</span><span class="k">bio, rider, photos</span></a>
-  </nav>
-
+  <div class="intro">
   <section class="about" id="about">
     <div class="lab">about <span class="lang"><button type="button" data-l="en" aria-pressed="true">english</button> / <button type="button" data-l="de" aria-pressed="false">deutsch</button></span></div>
     <div lang="en" class="bio">
@@ -71,14 +65,6 @@ addEventListener("DOMContentLoaded",()=>{const bs=[...document.querySelectorAll(
   bs.forEach(b=>b.onclick=()=>set(b.dataset.l));let s=null;try{s=localStorage.getItem("lang")}catch(e){}
   if(s==="de")set("de")});
 </script>
-
-  <section class="live" id="live">
-    <div class="lab">live</div>
-    <ul>
-      <li><time datetime="2026-11-09">09 Nov 2026</time><span>Madame Claude, Berlin</span></li>
-    </ul>
-  </section>
-
   <section class="organ" id="pipes">
     <div class="lab">pipes</div>
     <p class="hint">These pipes can be played. <b>Touch a pipe</b> to let it sound, touch it again to silence it.</p>
@@ -100,6 +86,30 @@ addEventListener("DOMContentLoaded",()=>{const bs=[...document.querySelectorAll(
     </div>
     <div class="notes" id="notes" aria-live="polite"></div>
   </section>
+  </div>
+
+  <nav class="idx" id="pages" aria-label="pages">
+    <a href="mariia-iii/"><span class="n">01</span><span class="t" data-r>Mariia III</span><span class="k">album</span></a>
+    <a class="hf" href="hellfire/"><span class="n">02</span><span class="t" data-r>There's a Hellfire beyond the Darkness of your Eyes</span><span class="k">first album</span></a>
+    <a href="live/"><span class="n">03</span><span class="t" data-r>Live Performance</span><span class="k">philosophy &amp; past performances</span></a>
+    <a href="photography/"><span class="n">04</span><span class="t" data-r>Band &amp; Live Photography</span><span class="k">black &amp; white, grainy</span></a>
+    <!-- PRIVAT: Fotoserien vorerst versteckt. Zum Freischalten diese Zeile wieder aktivieren, Nummern anpassen
+         und "series/" aus .gitignore löschen.
+    <a href="series/"><span class="n">05</span><span class="t" data-r>Photo Series</span><span class="k">munition, self-portraits, portraits …</span></a> -->
+    <a href="rysum/"><span class="n">05</span><span class="t" data-r>Rysum Pipe Organ Plugin</span><span class="k">in development</span></a>
+    <a href="recommendations/"><span class="n">06</span><span class="t" data-r>Recommendations</span><span class="k">games, music, films, books …</span></a>
+    <a href="press/"><span class="n">07</span><span class="t" data-r>Press</span><span class="k">bio, rider, photos</span></a>
+  </nav>
+
+
+
+  <section class="live" id="live">
+    <div class="lab">live</div>
+    <ul>
+      <li><time datetime="2026-11-09">09 Nov 2026</time><span>Madame Claude, Berlin</span></li>
+    </ul>
+  </section>
+
 
   <section class="contact" id="contact">
     <a class="m" data-u="reiteration.booking" data-d="gmail.com" data-r></a>
@@ -113,7 +123,7 @@ addEventListener("DOMContentLoaded",()=>{const bs=[...document.querySelectorAll(
 </main>
 
 <div id="lb" hidden><img id="lbi" alt=""><button id="lbp" aria-label="previous">‹</button><button id="lbn" aria-label="next">›</button><button id="lbx" aria-label="close">×</button><span id="lbt"></span><span id="lbc"></span></div>
-<nav id="nav" aria-label="quick links"><a href="#about">about</a><a href="#live">live</a><a href="#pipes">pipes</a><a href="#contact">contact</a></nav>
+<nav id="nav" aria-label="quick links"><a href="#about">about</a><a href="#pages">pages</a><a href="#live">live</a><a href="#contact">contact</a></nav>
 <canvas id="trail" aria-hidden="true"></canvas>
 </body>
 </html>
