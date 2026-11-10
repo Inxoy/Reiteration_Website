@@ -40,13 +40,13 @@ document.querySelectorAll("[data-r]").forEach(el=>{const o=el.textContent;let t;
     sp.forEach(s=>{if(s.textContent!==" "&&Math.random()<=.12+i*.04){s.dataset.g=G[Math.random()*G.length|0];s.classList.add("x")}else s.classList.remove("x")});
     if(++i>14){clearInterval(t);sp.forEach(s=>s.classList.remove("x"))}},60)})});
 
-/* photo viewer: click = open (and a pipe sounds), click again = zoom, arrows/swipe = next, esc = close.
+/* photo viewer: click = open (the photo is played as an organ score, see organ.js), click again = zoom, arrows/swipe = next, esc = close.
    Each gallery is browsed on its own; data-cap is shown under the photo. */
 (()=>{const lb=$("lb");if(!lb)return;const all=[...document.querySelectorAll(".ph img")],li=$("lbi");let ph=all,ci=0;
   function show(i){ci=(i+ph.length)%ph.length;li.src=ph[ci].src;lb.classList.remove("z");li.style.transformOrigin="50% 50%";
-    $("lbt").textContent=ph[ci].dataset.cap||"";$("lbc").textContent=(ci+1)+" / "+ph.length;lb.hidden=false;document.body.style.overflow="hidden"}
-  function shut(){lb.hidden=true;document.body.style.overflow=""}
-  all.forEach((im,i)=>im.onclick=()=>{if(im.dataset.egg)return portal(im);ph=[...im.closest(".gal").querySelectorAll(".ph img")];show(ph.indexOf(im));if(window.Organ)Organ.once(i%Organ.n)});
+    $("lbt").textContent=ph[ci].dataset.cap||"";$("lbc").textContent=(ci+1)+" / "+ph.length;lb.hidden=false;R.classList.add("lbo");document.body.style.overflow="hidden";if(window.Organ)Organ.photo(li)}
+  function shut(){lb.hidden=true;R.classList.remove("lbo");document.body.style.overflow="";if(window.Organ)Organ.hush()}
+  all.forEach((im,i)=>im.onclick=()=>{if(im.dataset.egg)return portal(im);ph=[...im.closest(".gal").querySelectorAll(".ph img")];show(ph.indexOf(im))});
   /* hidden easter egg: a photo with data-egg="URL" does not open the viewer – the screen tears and a friend's site opens in a new tab */
   function portal(im){const v=document.createElement("div");v.className="tear";document.body.appendChild(v);
     const w=window.open("about:blank","_blank");if(w)w.opener=null;

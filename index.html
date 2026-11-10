@@ -67,7 +67,7 @@ addEventListener("DOMContentLoaded",()=>{const bs=[...document.querySelectorAll(
 </script>
   <section class="organ" id="pipes">
     <div class="lab">pipes</div>
-    <p class="hint">These pipes can be played. <b>Touch a pipe</b> to let it sound, touch it again to silence it.</p>
+    <p class="hint">These pipes can be played. <b>Touch a pipe</b> to let it sound, touch it again to silence it. <b>Scrolling</b> fills the bellows.</p>
     <div class="org">
       <img src="img/organpipes_0005_web.jpg" width="1100" height="1617" alt="eleven organ pipes, from longest to shortest" loading="lazy" decoding="async">
       <svg viewBox="0 0 1000 1470" preserveAspectRatio="none" aria-label="playable pipes">
@@ -85,6 +85,18 @@ addEventListener("DOMContentLoaded",()=>{const bs=[...document.querySelectorAll(
       </svg>
     </div>
     <div class="notes" id="notes" aria-live="polite"></div>
+    <!-- SPACE: top view, the pipes are placed around the listener (binaural, for headphones) -->
+    <div class="space" id="space">
+      <div class="lab">space &nbsp;·&nbsp; headphones</div>
+      <p class="hint2">Drag the pipes around your head. Each one sounds from where you leave it.</p>
+      <svg id="spc" viewBox="-110 -110 220 220" role="group" aria-label="the pipes around the listener, seen from above">
+        <circle class="ring" r="100"/><circle class="ring" r="50"/><line class="ax" x1="0" y1="-104" x2="0" y2="104"/><line class="ax" x1="-104" y1="0" x2="104" y2="0"/>
+        <text class="fr" y="-104">front</text>
+        <g class="head" aria-hidden="true"><path d="M-3.2,-6.6 L0,-12 L3.2,-6.6"/><circle r="7"/><path d="M-7,-2.5 q-3,2.5 0,5 M7,-2.5 q3,2.5 0,5"/></g>
+        <g id="dots"></g>
+      </svg>
+      <div class="sbtn"><button type="button" id="orbit" aria-pressed="false">orbit</button><button type="button" id="scatter">scatter</button><button type="button" id="arc">arc</button></div>
+    </div>
   </section>
   </div>
 

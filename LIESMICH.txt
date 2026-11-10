@@ -12,7 +12,7 @@ AUFBAU
   recommendations/index.html    Empfehlungen (Spiele, Musik, Videos …)
   assets/site.css               Aussehen, für alle Seiten gemeinsam
   assets/site.js                Effekte (Körnung, Cursor-Spur, Galerie, Fotoansicht, Auge …), für alle Seiten
-  assets/organ.js               Orgelklang (Pfeifen auf der Startseite + kurzer Ton beim Öffnen eines Fotos)
+  assets/organ.js               Orgelklang: Pfeifen + Raum (Startseite), Wind-Kasten, Fotos als Orgel-Partitur
   img/                          Bilder (img/web = Galerie, img/band = Bandfotos, img/hellfire = Gemälde)
   audio/                        orgel.mp3 (listen-Knopf auf Mariia III), audio/pipes = Pfeifentöne
   fonts/                        IM Fell DW Pica (Open Font License)
@@ -41,7 +41,7 @@ FOTOS
      <figure class="ph"><img alt="photograph" src="../img/NAME.jpg" width="1000" height="1500" loading="lazy"></figure>
   width/height = Pixelmaße (ungefähr genügt, es zählt das Seitenverhältnis).
   Bandfotos zusätzlich mit data-cap="Bandname" – der Name steht dann beim Anklicken unter dem Foto.
-  Größe, Versatz, Vignette und Parallax kommen automatisch. Anklicken = volle Ansicht + Pfeifenton,
+  Größe, Versatz, Vignette und Parallax kommen automatisch. Anklicken = volle Ansicht + das Foto wird als Orgel-Partitur gespielt,
   nochmal klicken = Zoom, Pfeiltasten/Wischen = nächstes Bild, Esc = schließen. Jede Galerie wird für sich durchgeblättert.
   Die großen Originale werden nicht zu GitHub hochgeladen (siehe .gitignore).
 
@@ -52,7 +52,29 @@ HINTERGRÜNDE
 ORGELPFEIFEN (Startseite)
   Klänge: audio/pipes/pipe-01.wav … pipe-11.wav (pipe-01 = 199 Hz = längste Pfeife links).
   Einstellungen in assets/organ.js unter "const PIPES" (hz, Loop-Punkte ls/le, Lautstärke gain).
-  Jeder Ton bekommt zufällig einen Platz im Stereobild und Hall aus einem von drei Räumen.
+  SPACE (unter den Pfeifen): Draufsicht, Hörer:in in der Mitte, vorne = oben. Die Pfeifen lassen sich um den Kopf
+  ziehen und klingen binaural von dort (Kopfhörer). Antippen = Pfeife an/aus. orbit = alle kreisen, scatter = zufällig,
+  arc = Ausgangsstellung. Die Anordnung merkt sich der Browser.
+
+RYSUM-PFEIFEN (audio/pipes/040_E.wav … 062_dp.wav)
+  21 Pfeifen E bis d′ (mitteltönig, kurze Oktave: F♯ und G♯ im Bass fehlen). In organ.js unter "const RANK":
+  Dateiname, Notenname, gemessene Tonhöhe, Loop-Punkte, gemessener Pegel (daraus wird die Lautstärke angeglichen).
+  Neue Pfeife: Datei nach audio/pipes legen und eine Zeile in RANK ergänzen (tiefste zuerst).
+
+FOTOS ALS PARTITUR (alle Seiten mit Fotoansicht)
+  Jedes geöffnete Foto (auch per Pfeiltaste/Wischen) wird wie eine Drehorgel-Walze gelesen: in 21 waagerechte Streifen
+  geteilt (oben = hoch, unten = tief), eine Linie fährt in 14 Sekunden von links nach rechts, helle und körnige Stellen
+  öffnen die Pfeife ihres Streifens. Der Klang wandert dabei vom linken zum rechten Ohr, hohe Töne klingen von oben.
+  Danach klingt der Akkord 5 Sekunden aus. Oben steht, welche Pfeifen das Foto spielt. Dauer: DUR und TAIL in organ.js.
+
+WIND (Kasten unten links)
+  scroll = Scrollen füllt den Balg; in Ruhe sinkt der Wind, die Pfeifen werden leiser, dunkler, tiefer und zittern.
+  voice  = Mikrofon: Blasen oder Singen ist der Wind. Ein gehaltener gesungener Ton lässt die nächstliegende
+           Rysum-Pfeife mitklingen. Das Mikrofon wird nur gehört, nichts wird aufgenommen oder gesendet.
+  steady = voller, gleichmäßiger Wind. (scroll/steady merkt sich der Browser.)
+
+  Hinweis: Direkt aus dem Ordner geöffnet (Doppelklick auf index.html) klingt alles einfacher – ohne Raum, ohne
+  Foto-Partitur aus dem Bild. Online unter reiteration.de funktioniert alles.
 
 VERSTECKT: Ein Foto mit data-egg="URL" öffnet beim Anklicken statt der Ansicht die Seite eines Freundes (derzeit photo-22 auf Mariia III).
 
