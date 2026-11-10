@@ -176,3 +176,21 @@ body:has(#snd) #wind{bottom:calc(64px + env(safe-area-inset-bottom,0px))}
 #lbscan{position:fixed;width:1px;pointer-events:none;opacity:0;background:rgba(255,255,255,.7);mix-blend-mode:difference;box-shadow:0 0 10px 1px rgba(255,255,255,.35);z-index:2}
 #lbs{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);color:var(--dim);font:14px var(--f);letter-spacing:.25em;white-space:pre;pointer-events:none}
 @media(max-width:640px){#lbs{top:auto;bottom:calc(70px + env(safe-area-inset-bottom,0px));font-size:12px}}
+
+/* pipe panel (opens from "pipes" in the wind box): the eleven pipes, playable on every page */
+#wind .mt{color:var(--fg);border-left:1px solid #3a3735;padding-left:.9em;border-bottom:0}
+#wind .mt.on{animation:mtb 2.4s ease-in-out infinite}
+@keyframes mtb{0%,100%{color:var(--dim)}50%{color:var(--fg)}}
+#mini{position:absolute;left:-1px;bottom:calc(100% + 8px);width:max(100%,300px);background:rgba(0,0,0,.82);border:1px solid var(--dim);padding:.8em 1em 1em;text-transform:none;letter-spacing:.1em}
+#mini[hidden]{display:none}
+.lbo #mini{bottom:auto;top:calc(100% + 8px)}
+#mini .mh{display:flex;justify-content:space-between;align-items:baseline;color:var(--dim);text-transform:uppercase;letter-spacing:.25em;font-size:11px;margin-bottom:.8em}
+#mini .mp{display:flex;align-items:flex-end;gap:4px;height:110px}
+#mini .mpi{flex:1;height:100%;padding:0;background:none;border:0;cursor:pointer;display:flex;align-items:flex-end;justify-content:center}
+#mini .mpi i{display:block;width:min(100%,14px);height:var(--h);background:linear-gradient(90deg,#3d3a36,#a19c93 45%,#57534d);opacity:.55;transition:opacity .4s;
+  clip-path:polygon(0 0,100% 0,100% 72%,70% 100%,30% 100%,0 72%)}
+#mini .mpi:hover i,#mini .mpi:focus-visible i{opacity:.85}
+#mini .mpi.on i{opacity:1;animation:pipeb 2.4s ease-in-out infinite}
+@keyframes pipeb{0%,100%{filter:brightness(1)}50%{filter:brightness(1.45) drop-shadow(0 0 6px rgba(255,255,255,.5))}}
+#mini .mn{margin-top:.7em;min-height:1.3em;color:var(--dim);font-size:11px;letter-spacing:.2em}
+@media(max-width:640px){#mini{width:calc(100vw - 24px)}}

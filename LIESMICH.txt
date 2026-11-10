@@ -68,10 +68,18 @@ FOTOS ALS PARTITUR (alle Seiten mit Fotoansicht)
   Danach klingt der Akkord 5 Sekunden aus. Oben steht, welche Pfeifen das Foto spielt. Dauer: DUR und TAIL in organ.js.
 
 WIND (Kasten unten links)
-  scroll = Scrollen füllt den Balg; in Ruhe sinkt der Wind, die Pfeifen werden leiser, dunkler, tiefer und zittern.
+  scroll = die Höhe auf der Seite ist der Wind: ganz oben voller Wind, ganz unten keiner. Je weiter man nach unten
+           scrollt, desto leiser, dunkler, tiefer und zittriger werden die Pfeifen, unten verstummen sie
+           (das gilt auch für die Foto-Partituren).
   voice  = Mikrofon: Blasen oder Singen ist der Wind. Ein gehaltener gesungener Ton lässt die nächstliegende
            Rysum-Pfeife mitklingen. Das Mikrofon wird nur gehört, nichts wird aufgenommen oder gesendet.
-  steady = voller, gleichmäßiger Wind. (scroll/steady merkt sich der Browser.)
+  steady = voller, gleichmäßiger Wind. (scroll/steady merkt sich der Browser, voice nur im selben Tab.)
+  pipes  = öffnet ein kleines Feld mit den elf Pfeifen der Startseite – so lassen sie sich auf jeder Unterseite
+           an- und ausschalten. silence = alle aus.
+
+  SEITENWECHSEL: Welche Pfeifen klingen, merkt sich der Tab. Auf der nächsten Seite setzen sie wieder ein
+  (kurze Pause beim Laden lässt sich nicht vermeiden). Manche Browser, v. a. Safari und iPhone, lassen den Ton
+  erst nach der ersten Berührung oder Taste zu – im Pfeifen-Feld steht dann "touch anywhere to let them sound".
 
   Hinweis: Direkt aus dem Ordner geöffnet (Doppelklick auf index.html) klingt alles einfacher – ohne Raum, ohne
   Foto-Partitur aus dem Bild. Online unter reiteration.de funktioniert alles.

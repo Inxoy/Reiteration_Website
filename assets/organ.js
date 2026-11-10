@@ -104,17 +104,13 @@ window.Organ=(()=>{
     return{lv,b,stop(t=.5){if(gone)return;gone=true;env(f,ac.currentTime,0,t);h.stop(t)},at(pos,s){setPos(p,pos,s)}}}
 
   /* ---------- 4. wind ---------- */
-  let lastY=scrollY,pump=0,lastT=performance.now(),mic=null;
-  addEventListener("wheel",e=>{pump=Math.max(pump,Math.abs(e.deltaY)*(e.deltaMode===1?16:e.deltaMode===2?innerHeight:1))},{passive:true});
-  let ty=null;addEventListener("touchmove",e=>{const y=e.touches[0].clientY;if(ty!==null)pump=Math.max(pump,Math.abs(y-ty));ty=y},{passive:true});
-  addEventListener("touchend",()=>{ty=null},{passive:true});
-  const FLOOR=.55;
+  /* scroll: the height on the page is the wind – top of the page = full wind, bottom = none */
+  let lastT=performance.now(),mic=null,first=true;
   function tick(){const now=performance.now(),dt=Math.min(.1,(now-lastT)/1000);lastT=now;
     let target=1,up=.4,down=1.5;
-    if(wind.mode==="scroll"){const dy=Math.abs(scrollY-lastY);const v=Math.max(dy,pump)/Math.max(dt,.016);pump=0;
-      target=FLOOR+(1-FLOOR)*Math.pow(Math.min(1,v/1800),.7);up=.25;down=3}
+    if(wind.mode==="scroll"){const m=R.scrollHeight-innerHeight;target=m<40?1:Math.max(0,Math.min(1,1-scrollY/m));up=.18;down=.35}
     else if(wind.mode==="voice"&&mic){const m=listen();target=m.wind;up=.07;down=.5}
-    lastY=scrollY;
+    if(first){wind.W=target;first=false}
     wind.W+=(target-wind.W)*(1-Math.exp(-dt/(target>wind.W?up:down)));
     const W=wind.W,lack=1-W;
     /* random walks for the trembling of a weak wind */
@@ -131,18 +127,20 @@ window.Organ=(()=>{
   /* the wind box */
   const box=document.createElement("div");box.id="wind";box.setAttribute("role","group");box.setAttribute("aria-label","organ wind");
   box.innerHTML='<span class="wl">wind</span><span class="wg" aria-hidden="true"></span>'+
-    ["scroll","voice","steady"].map(m=>`<button type="button" data-m="${m}" aria-pressed="false" title="${{scroll:"scrolling fills the bellows",voice:"blow or sing into the microphone",steady:"full, steady wind"}[m]}">${m}</button>`).join("")+
-    '<span class="ws" aria-live="polite"></span>';
-  document.body.appendChild(box);const gEl=box.querySelector(".wg"),sEl=box.querySelector(".ws"),btns=[...box.querySelectorAll("button")];
+    ["scroll","voice","steady"].map(m=>`<button type="button" data-m="${m}" aria-pressed="false" title="${{scroll:"top of the page = full wind, bottom = no wind",voice:"blow or sing into the microphone",steady:"full, steady wind"}[m]}">${m}</button>`).join("")+
+    '<span class="ws" aria-live="polite"></span><button type="button" class="mt" aria-expanded="false" aria-controls="mini" title="play the pipes from any page">pipes</button>'+
+    '<div id="mini" hidden><div class="mh"><span>pipes</span><button type="button" class="moff">silence</button></div><div class="mp"></div><div class="mn" aria-live="polite"></div></div>';
+  document.body.appendChild(box);const gEl=box.querySelector(".wg"),sEl=box.querySelector(".ws"),btns=[...box.querySelectorAll("button[data-m]")];
   function gauge(){const n=12,f=wind.W*n;let s="";for(let i=0;i<n;i++){const d=f-i;s+=d>=1?"▓":d>0?(Math.random()<d?"▒":"░"):(Math.random()<.04*(1-wind.W)?G[Math.random()*G.length|0]:"░")}gEl.textContent=s}
   async function setMode(m){if(m==="voice"&&!mic){sEl.textContent="…";
       try{const st=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:false,autoGainControl:false}});
         ctx();const an=ac.createAnalyser();an.fftSize=2048;ac.createMediaStreamSource(st).connect(an);mic={st,an,buf:new Float32Array(2048),hold:null,cand:-1,cn:0,quiet:0,cur:-1};sEl.textContent="blow or sing"}
       catch(e){sEl.textContent="no microphone";m="scroll"}}
     if(m!=="voice"&&mic){mic.st.getTracks().forEach(t=>t.stop());if(mic.hold)mic.hold.then(v=>v.stop(.8));mic=null;sEl.textContent=""}
-    wind.mode=m;btns.forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===m));if(m!=="voice")try{localStorage.setItem("wind",m)}catch(e){}}
+    wind.mode=m;btns.forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===m));try{if(m!=="voice")localStorage.setItem("wind",m);sessionStorage.setItem("wind-voice",m==="voice"?"1":"")}catch(e){}}
   btns.forEach(b=>b.onclick=()=>{ctx();setMode(b.dataset.m)});
-  let saved=null;try{saved=localStorage.getItem("wind")}catch(e){}setMode(saved==="steady"?"steady":"scroll");
+  let saved=null,sv=null;try{saved=localStorage.getItem("wind");sv=sessionStorage.getItem("wind-voice")}catch(e){}setMode(saved==="steady"?"steady":"scroll");
+  if(sv)setMode("voice");
 
   /* voice: loudness = wind; a steady sung pitch makes the nearest Rysum pipe sound along with you */
   function listen(){const {an,buf}=mic;an.getFloatTimeDomainData(buf);let e=0;for(let i=0;i<buf.length;i++)e+=buf[i]*buf[i];
@@ -207,11 +205,28 @@ window.Organ=(()=>{
     return{stop}}
   let cur=null,seq=0,wait=0;
 
-  /* ---------- 6. start-page pipes in space ---------- */
-  const live={};
-  return{n:PIPES.length,wind,tickers,
-    async toggle(i,pos){if(live[i]){const v=live[i];live[i]=null;(await v).stop(.5);return false}live[i]=voice(PIPES[i],{level:.3,pos});return true},
-    move(i,pos){if(live[i])live[i].then(v=>v&&v.at(pos,.05))},
+  /* ---------- 6. the eleven pipes on every page ----------
+     Which pipes sound is kept for this browser tab (sessionStorage), so they keep sounding on the next page.
+     Where they stand around the listener (space) is kept in localStorage. */
+  const live={},N=PIPES.length,subs=new Set(),ON="pipes-on",KEY="pipe-space";
+  const arc=()=>PIPES.map((_,i)=>({a:(-70+140*i/(N-1))*Math.PI/180,r:.5}));
+  let SP=null;try{SP=JSON.parse(localStorage.getItem(KEY))}catch(e){}if(!Array.isArray(SP)||SP.length!==N)SP=arc();
+  const sp={get:()=>SP,set(v){SP=v},arc,save(){try{localStorage.setItem(KEY,JSON.stringify(SP))}catch(e){}},
+    pos(i){const d=.5+5.5*SP[i].r;return[Math.sin(SP[i].a)*d,0,-Math.cos(SP[i].a)*d]}};
+  const isOn=i=>!!live[i],keep=()=>{try{sessionStorage.setItem(ON,JSON.stringify(PIPES.map((_,i)=>i).filter(isOn)))}catch(e){}},tell=()=>{keep();subs.forEach(f=>f())};
+  function setPipe(i,on,fade=.5){if(on===isOn(i))return;if(on){live[i]=voice(PIPES[i],{level:.3,pos:sp.pos(i),attack:fade>1?fade:.08})}else{const v=live[i];live[i]=null;v.then(x=>x.stop(.5))}tell()}
+  /* coming from another page: start the pipes again. Browsers may hold the sound back until the first touch or key. */
+  let waiting=false;
+  const wake=()=>{if(ac&&ac.state!=="running")ac.resume();setTimeout(()=>{waiting=!!ac&&ac.state!=="running";tell()},150)};
+  (()=>{let was=[];try{was=JSON.parse(sessionStorage.getItem(ON)||"[]")}catch(e){}if(!was.length)return;
+    was.forEach(i=>{if(i>=0&&i<N)setPipe(i,true,1.6)});wake();
+    ["pointerdown","keydown","touchend"].forEach(t=>addEventListener(t,function f(){wake();if(!waiting)["pointerdown","keydown","touchend"].forEach(u=>removeEventListener(u,f,true))},true))})();
+  return{n:N,wind,tickers,sp,isOn,
+    get waiting(){return waiting},
+    on(f){subs.add(f);f()},
+    toggle(i){setPipe(i,!isOn(i));return isOn(i)},
+    silence(){PIPES.forEach((_,i)=>setPipe(i,false))},
+    move(i){if(live[i])live[i].then(v=>v&&v.at(sp.pos(i),.05))},
     /* called by the photo viewer for every photo shown (open, arrows, swipe) */
     photo(img){const my=++seq;clearTimeout(wait);if(cur){cur.stop(1.4);cur=null}if(lbs)lbs.textContent="";
       wait=setTimeout(()=>{const go=()=>{if(my===seq&&!$("lb").hidden)cur=score(img)};
@@ -219,41 +234,48 @@ window.Organ=(()=>{
     hush(){seq++;clearTimeout(wait);if(cur){cur.stop(2.5);cur=null}},
     preload(){PIPES.forEach(load)}}})();
 
+/* the pipe panel in the wind box (every page): eleven small pipes, same state as the big ones on the start page */
+(()=>{const box=$("wind"),mini=$("mini"),t=box.querySelector(".mt"),mp=mini.querySelector(".mp"),mn=mini.querySelector(".mn");
+  const bs=PIPES.map((P,i)=>{const b=document.createElement("button");b.type="button";b.className="mpi";b.style.setProperty("--h",(100-i*6.2)+"%");
+    b.setAttribute("aria-label","pipe "+(i+1)+", "+P.note);b.title=P.note;b.innerHTML="<i></i>";b.onclick=()=>Organ.toggle(i);mp.appendChild(b);return b});
+  mini.querySelector(".moff").onclick=()=>Organ.silence();
+  const open=o=>{mini.hidden=!o;t.setAttribute("aria-expanded",o);try{sessionStorage.setItem("mini",o?"1":"")}catch(e){}};
+  t.onclick=()=>open(mini.hidden);addEventListener("keydown",e=>{if(e.key==="Escape"&&!mini.hidden&&$("lb")?.hidden!==false)open(false)});
+  try{if(sessionStorage.getItem("mini"))open(true)}catch(e){}
+  Organ.on(()=>{let n=0;bs.forEach((b,i)=>{const on=Organ.isOn(i);b.classList.toggle("on",on);b.setAttribute("aria-pressed",on);n+=on});
+    t.classList.toggle("on",n>0);t.textContent=n?"pipes · "+n:"pipes";
+    mn.textContent=Organ.waiting&&n?"touch anywhere to let them sound":PIPES.filter((_,i)=>Organ.isOn(i)).map(P=>P.note).join("  ·  ")})})();
+
 /* start page: the eleven pipes, and the top view where they are moved around the listener */
 (()=>{const polys=[...document.querySelectorAll(".org polygon")],notes=$("notes");if(!polys.length)return;
-  const svg=$("spc"),dotsG=$("dots"),N=PIPES.length,KEY="pipe-space";
-  /* a = angle (0 = in front, positive = to the right), r = 0…1 of the ring (0.5 m … 6 m) */
-  const arc=()=>PIPES.map((_,i)=>({a:(-70+140*i/(N-1))*Math.PI/180,r:.5}));
-  let SP=null;try{SP=JSON.parse(localStorage.getItem(KEY))}catch(e){}if(!Array.isArray(SP)||SP.length!==N)SP=arc();
-  const pos=i=>{const d=.5+5.5*SP[i].r;return[Math.sin(SP[i].a)*d,0,-Math.cos(SP[i].a)*d]};
-  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(SP))}catch(e){}};
-  const showNotes=()=>{notes.textContent=polys.map((p,i)=>p.classList.contains("on")?PIPES[i].note:"").filter(Boolean).join("  ·  ")};
-  const dots=[];
-  async function hit(i){const p=polys[i],on=!p.classList.contains("on");p.classList.toggle("on",on);p.setAttribute("aria-pressed",on);if(dots[i])dots[i].classList.toggle("on",on);showNotes();await Organ.toggle(i,pos(i))}
-  polys.forEach((p,i)=>{p.setAttribute("tabindex","0");p.setAttribute("role","button");p.setAttribute("aria-label","pipe "+(i+1)+", "+PIPES[i].note);p.setAttribute("aria-pressed","false");
+  const svg=$("spc"),dotsG=$("dots"),sp=Organ.sp,dots=[];
+  Organ.on(()=>{polys.forEach((p,i)=>{const on=Organ.isOn(i);p.classList.toggle("on",on);p.setAttribute("aria-pressed",on);if(dots[i])dots[i].classList.toggle("on",on)});
+    notes.textContent=PIPES.filter((_,i)=>Organ.isOn(i)).map(P=>P.note).join("  ·  ")});
+  const hit=i=>Organ.toggle(i);
+  polys.forEach((p,i)=>{p.setAttribute("tabindex","0");p.setAttribute("role","button");p.setAttribute("aria-label","pipe "+(i+1)+", "+PIPES[i].note);
     p.addEventListener("click",()=>hit(i));p.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();hit(i)}})});
   addEventListener("pointerdown",()=>Organ.preload(),{once:true});
   if(!svg)return;
-  const NS="http://www.w3.org/2000/svg",RAD=100;
-  function draw(i){const x=Math.sin(SP[i].a)*SP[i].r*RAD,y=-Math.cos(SP[i].a)*SP[i].r*RAD;dots[i].setAttribute("transform",`translate(${x.toFixed(1)} ${y.toFixed(1)})`)}
-  PIPES.forEach((P,i)=>{const g=document.createElementNS(NS,"g");g.setAttribute("class","dot");g.setAttribute("tabindex","0");g.setAttribute("role","button");
+  const NS="http://www.w3.org/2000/svg",RAD=100,SP=()=>sp.get();
+  function draw(i){const s=SP()[i],x=Math.sin(s.a)*s.r*RAD,y=-Math.cos(s.a)*s.r*RAD;dots[i].setAttribute("transform",`translate(${x.toFixed(1)} ${y.toFixed(1)})`)}
+  PIPES.forEach((P,i)=>{const g=document.createElementNS(NS,"g");g.setAttribute("class","dot"+(Organ.isOn(i)?" on":""));g.setAttribute("tabindex","0");g.setAttribute("role","button");
     g.setAttribute("aria-label",`pipe ${i+1}, ${P.note}. Click to sound, drag or use the arrow keys to move it`);
     g.innerHTML=`<circle class="halo" r="7.5"/><circle r="${5.5-i*.25}"/><text y="-10">${i+1}</text>`;dotsG.appendChild(g);dots.push(g);draw(i);
     let drag=null;
     g.addEventListener("pointerdown",e=>{e.preventDefault();g.setPointerCapture(e.pointerId);drag={x:e.clientX,y:e.clientY,moved:false}});
     g.addEventListener("pointermove",e=>{if(!drag)return;if(Math.hypot(e.clientX-drag.x,e.clientY-drag.y)>4)drag.moved=true;if(!drag.moved)return;
       const r=svg.getBoundingClientRect(),sx=(e.clientX-r.left)/r.width*220-110,sy=(e.clientY-r.top)/r.height*220-110;
-      SP[i].a=Math.atan2(sx,-sy);SP[i].r=Math.max(.06,Math.min(1,Math.hypot(sx,sy)/RAD));draw(i);Organ.move(i,pos(i))});
-    const up=()=>{if(!drag)return;if(!drag.moved)hit(i);else save();drag=null};
+      SP()[i].a=Math.atan2(sx,-sy);SP()[i].r=Math.max(.06,Math.min(1,Math.hypot(sx,sy)/RAD));draw(i);Organ.move(i)});
+    const up=()=>{if(!drag)return;if(!drag.moved)hit(i);else sp.save();drag=null};
     g.addEventListener("pointerup",up);g.addEventListener("pointercancel",()=>{drag=null});
     g.addEventListener("keydown",e=>{const k=e.key;if(k==="Enter"||k===" "){e.preventDefault();hit(i);return}
       const st={ArrowLeft:[-.12,0],ArrowRight:[.12,0],ArrowUp:[0,-.06],ArrowDown:[0,.06]}[k];if(!st)return;e.preventDefault();
-      SP[i].a+=st[0];SP[i].r=Math.max(.06,Math.min(1,SP[i].r+st[1]));draw(i);Organ.move(i,pos(i));save()})});
+      SP()[i].a+=st[0];SP()[i].r=Math.max(.06,Math.min(1,SP()[i].r+st[1]));draw(i);Organ.move(i);sp.save()})});
   /* orbit: every pipe circles the listener at its own speed and direction */
   const orb=$("orbit"),w=PIPES.map(()=>(.18+Math.random()*.6)*(Math.random()<.5?-1:1));let orbit=false;
-  if(orb)orb.onclick=()=>{orbit=!orbit;orb.setAttribute("aria-pressed",orbit);if(!orbit)save()};
-  Organ.tickers.add(dt=>{if(!orbit)return;SP.forEach((s,i)=>{s.a+=w[i]*dt;draw(i);Organ.move(i,pos(i))})});
-  const set=f=>{SP=f();dots.forEach((_,i)=>{draw(i);Organ.move(i,pos(i))});save()};
+  if(orb)orb.onclick=()=>{orbit=!orbit;orb.setAttribute("aria-pressed",orbit);if(!orbit)sp.save()};
+  Organ.tickers.add(dt=>{if(!orbit)return;SP().forEach((s,i)=>{s.a+=w[i]*dt;draw(i);Organ.move(i)})});
+  const set=f=>{sp.set(f());dots.forEach((_,i)=>{draw(i);Organ.move(i)});sp.save()};
   const sc=$("scatter");if(sc)sc.onclick=()=>set(()=>PIPES.map(()=>({a:Math.random()*Math.PI*2,r:.12+Math.random()*.88})));
-  const ar=$("arc");if(ar)ar.onclick=()=>set(arc);
+  const ar=$("arc");if(ar)ar.onclick=()=>set(sp.arc);
 })();
