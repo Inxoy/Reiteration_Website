@@ -26,9 +26,10 @@
 .intro .org{margin-left:0;width:min(100%,430px)}
 @media(max-width:900px){.intro{grid-template-columns:1fr}.intro .organ{margin-top:10vh}.intro .org{width:min(100%,520px)}}
 .idx{margin-top:18vh;max-width:1100px}
-.idx a{display:grid;grid-template-columns:4.5rem 1fr;align-items:baseline;gap:0 1rem;border:0;border-top:1px solid #3a3735;padding:1.5rem 0 1.4rem;text-shadow:0 0 14px #000;transition:padding .5s,background .5s}
-.idx a:last-child{border-bottom:1px solid #3a3735}
-.idx a:hover{padding-left:1.2rem;background:linear-gradient(90deg,rgba(0,0,0,.55),transparent 70%)}
+.idx a{display:grid;grid-template-columns:4.5rem 1fr;align-items:baseline;gap:0 1rem;background:var(--rule) left top/100% 8px no-repeat;padding:1.5rem 0 1.4rem;text-shadow:0 0 14px #000;transition:padding .5s}
+.idx a:last-child{background:var(--rule) left top/100% 8px no-repeat,var(--rule2) left bottom/100% 8px no-repeat}
+.idx a:hover{padding-left:1.2rem;background:var(--rule-hi) left top/100% 8px no-repeat,radial-gradient(ellipse 60% 70% at 18% 50%,rgba(0,0,0,.6),transparent 75%)}
+.idx a:last-child:hover{background:var(--rule-hi) left top/100% 8px no-repeat,var(--rule2) left bottom/100% 8px no-repeat,radial-gradient(ellipse 60% 70% at 18% 50%,rgba(0,0,0,.6),transparent 75%)}
 .idx .n{color:var(--dim);font-size:13px;letter-spacing:.3em}
 .idx .t{font:italic 400 clamp(30px,5.4vw,76px)/1.05 var(--f);letter-spacing:-.02em}
 .idx .k{grid-column:2;margin-top:.6rem;color:var(--dim);letter-spacing:.3em;text-transform:uppercase;font-size:12px}
@@ -90,7 +91,8 @@ addEventListener("DOMContentLoaded",()=>{const bs=[...document.querySelectorAll(
       <div class="lab">space &nbsp;·&nbsp; headphones</div>
       <p class="hint2">Drag the pipes around your head. Each one sounds from where you leave it.</p>
       <svg id="spc" viewBox="-110 -110 220 220" role="group" aria-label="the pipes around the listener, seen from above">
-        <circle class="ring" r="100"/><circle class="ring" r="50"/><line class="ax" x1="0" y1="-104" x2="0" y2="104"/><line class="ax" x1="-104" y1="0" x2="104" y2="0"/>
+        <defs><filter id="rough" x="-.1" y="-.1" width="1.2" height="1.2"><feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="2" seed="5"/><feDisplacementMap in="SourceGraphic" scale="2.4"/></filter></defs>
+        <g filter="url(#rough)"><circle class="ring" r="100"/><circle class="ring" r="50"/><line class="ax" x1="0" y1="-96" x2="0" y2="96"/><line class="ax" x1="-96" y1="0" x2="96" y2="0"/></g>
         <text class="fr" y="-104">front</text>
         <g class="head" aria-hidden="true"><path d="M-3.2,-6.6 L0,-12 L3.2,-6.6"/><circle r="7"/><path d="M-7,-2.5 q-3,2.5 0,5 M7,-2.5 q3,2.5 0,5"/></g>
         <g id="dots"></g>
