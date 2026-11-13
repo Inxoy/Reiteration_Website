@@ -105,3 +105,11 @@ DEUTSCHE BIO
 LINKVORSCHAU (WhatsApp, Instagram, Signal …)
  Jede Seite hat im <head> og:-Zeilen (Titel, Beschreibung, Bild). Vorschaubild: img/og.jpg (1200 × 630),
  Hellfire nutzt img/og-hellfire.jpg. Titel/Beschreibung kommen aus <title> und meta description.
+
+TEMPO / LEISTUNG
+  - Die Website lädt die Pfeifen als MP3 (audio/pipes/*.mp3, zusammen ca. 1,5 MB statt 13 MB WAV).
+    Die WAV-Dateien bleiben als Originale im Ordner. Neue Pfeife: WAV zusätzlich als MP3 speichern
+    (gleicher Name, z. B. mit Audacity oder ffmpeg -i x.wav -ac 1 -q:a 2 x.mp3).
+  - Die Linien- und Körnungs-Texturen sind kleine Bilder in img/ui (vorher live gerechnet, das hat beim Scrollen gebremst).
+    Sie werden mit /img/ui/… eingebunden und erscheinen deshalb nur online bzw. über einen lokalen Server.
+  - Die Orgel-Schleife läuft nur schnell, wenn etwas klingt oder sich der Wind ändert, und pausiert in verborgenen Tabs.

@@ -21,7 +21,7 @@ const PIPES=[
   {file:"audio/pipes/pipe-09.wav",hz:475.7,ls:0.35,le:4.2, gain:0.73},
   {file:"audio/pipes/pipe-10.wav",hz:498.0,ls:0.35,le:3.85,gain:0.76},
   {file:"audio/pipes/pipe-11.wav",hz:636.9,ls:0.35,le:4.35,gain:1.15}];
-PIPES.forEach(p=>{p.note=Math.round(p.hz)+" Hz";p.file=ROOT+p.file});
+PIPES.forEach(p=>{p.note=Math.round(p.hz)+" Hz";p.file=ROOT+p.file.replace(/\.wav$/,".mp3")});
 
 /* ---------- 2. RANK (Rysum, meantone, measured pitches) ----------
    f = file name in audio/pipes, n = note name, s = measured level of the held part (sets gain automatically).
@@ -34,7 +34,7 @@ const RANK=[
   ["054_f#","f♯",185.30,.45,3.34,.1208],["055_g","g",198.62,.30,2.90,.0650],["056_g#","g♯",207.64,.42,2.83,.1035],
   ["057_a","a",221.88,.60,2.52,.1186],["058_bb","b♭",237.67,.44,2.65,.0867],["059_b","b",248.02,.34,2.51,.1275],
   ["060_cp","c′",265.50,.35,2.91,.0692],["061_c#p","c♯′",277.31,.37,2.68,.1136],["062_dp","d′",296.77,.32,2.69,.0672]
-].map(([f,n,hz,ls,le,s])=>({file:ROOT+"audio/pipes/"+encodeURIComponent(f)+".wav",note:n,hz,ls,le,gain:Math.min(7,.3/s),midi:69+12*Math.log2(hz/440)}));
+].map(([f,n,hz,ls,le,s])=>({file:ROOT+"audio/pipes/"+encodeURIComponent(f)+".mp3",note:n,hz,ls,le,gain:Math.min(7,.3/s),midi:69+12*Math.log2(hz/440)}));
 
 /* ---------- 3. engine ---------- */
 window.Organ=(()=>{
@@ -117,12 +117,17 @@ window.Organ=(()=>{
     wind.j1=Math.max(-1,Math.min(1,wind.j1*.96+(Math.random()-.5)*.5));wind.j2=Math.max(-1,Math.min(1,wind.j2*.9+(Math.random()-.5)*.7));
     wind.det=-62*Math.pow(lack,1.6)+(W>.93?(W-.93)*40:0);wind.td=3+16*lack*lack;
     wind.lvl=Math.pow(W,.8)*(1+(Math.random()-.5)*.35*lack*lack);
-    if(ac){const t=ac.currentTime;wG.gain.setTargetAtTime(wind.lvl,t,.04);wLP.frequency.setTargetAtTime(600+13000*Math.pow(W,1.7),t,.05);
+    /* only touch the sound when something sounds */
+    if(ac&&(srcs.size||oscs.size)){const t=ac.currentTime;wG.gain.setTargetAtTime(wind.lvl,t,.04);wLP.frequency.setTargetAtTime(600+13000*Math.pow(W,1.7),t,.05);
       for(const s of srcs)s.playbackRate.setTargetAtTime(rateOf(s._k),t,.05);
       for(const o of oscs)o.detune.setTargetAtTime(wind.det+wind.td*o._k*wind.j1,t,.05)}
     for(const a of els){a.volume=Math.max(0,Math.min(1,a._top*wind.lvl));try{a.playbackRate=rateOf(0)}catch(e){}}
-    tickers.forEach(f=>f(dt));gauge()}
-  setInterval(tick,33);
+    tickers.forEach(f=>f(dt));if(++gt%4===0)gauge()}
+  /* 30 times a second while sound plays or the wind moves; slower when nothing happens; stopped in a hidden tab */
+  let gt=0,still=0;
+  (function loop(){if(document.hidden){setTimeout(loop,500);return}
+    const busy=srcs.size||oscs.size||els.size||tickers.size||mic;const w0=wind.W;tick();
+    still=Math.abs(wind.W-w0)<.0005&&!busy?still+1:0;setTimeout(loop,still>20?250:33)})();
 
   /* the wind box */
   const box=document.createElement("div");box.id="wind";box.setAttribute("role","group");box.setAttribute("aria-label","organ wind");
@@ -131,7 +136,9 @@ window.Organ=(()=>{
     '<span class="ws" aria-live="polite"></span><button type="button" class="mt" aria-expanded="false" aria-controls="mini" title="play the pipes from any page">pipes</button>'+
     '<div id="mini" hidden><div class="mh"><span>pipes</span><button type="button" class="moff">silence</button></div><div class="mp"></div><div class="mn" aria-live="polite"></div></div>';
   document.body.appendChild(box);const gEl=box.querySelector(".wg"),sEl=box.querySelector(".ws"),btns=[...box.querySelectorAll("button[data-m]")];
-  function gauge(){const n=12,f=wind.W*n;let s="";for(let i=0;i<n;i++){const d=f-i;s+=d>=1?"▓":d>0?(Math.random()<d?"▒":"░"):(Math.random()<.04*(1-wind.W)?G[Math.random()*G.length|0]:"░")}gEl.textContent=s}
+  let lastG="";
+  function gauge(){const n=12,f=wind.W*n;let s="";for(let i=0;i<n;i++){const d=f-i;s+=d>=1?"▓":d>0?(Math.random()<d?"▒":"░"):(Math.random()<.04*(1-wind.W)?G[Math.random()*G.length|0]:"░")}
+    if(s!==lastG){lastG=s;gEl.textContent=s}}
   async function setMode(m){if(m==="voice"&&!mic){sEl.textContent="…";
       try{const st=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:false,autoGainControl:false}});
         ctx();const an=ac.createAnalyser();an.fftSize=2048;ac.createMediaStreamSource(st).connect(an);mic={st,an,buf:new Float32Array(2048),hold:null,cand:-1,cn:0,quiet:0,cur:-1};sEl.textContent="blow or sing"}
@@ -145,7 +152,7 @@ window.Organ=(()=>{
   /* voice: loudness = wind; a steady sung pitch makes the nearest Rysum pipe sound along with you */
   function listen(){const {an,buf}=mic;an.getFloatTimeDomainData(buf);let e=0;for(let i=0;i<buf.length;i++)e+=buf[i]*buf[i];
     const rms=Math.sqrt(e/buf.length),db=20*Math.log10(rms+1e-9),w=Math.max(.04,Math.min(1,(db+52)/34));
-    const hz=rms>.012?pitch(buf,ac.sampleRate):0;
+    mic.k=(mic.k||0)+1;const hz=rms>.012?(mic.k%2?mic.hz||0:(mic.hz=pitch(buf,ac.sampleRate))):0;
     if(hz){let m=69+12*Math.log2(hz/440);while(m>RANK[RANK.length-1].midi+.5)m-=12;while(m<RANK[0].midi-.5)m+=12;
       let bi=0,bd=99;RANK.forEach((r,i)=>{const d=Math.abs(r.midi-m);if(d<bd){bd=d;bi=i}});
       if(bi===mic.cand)mic.cn++;else{mic.cand=bi;mic.cn=0}mic.quiet=0;
@@ -154,7 +161,7 @@ window.Organ=(()=>{
     return{wind:w}}
   /* normalized autocorrelation, 70–1000 Hz, first strong peak (avoids octave jumps) */
   function pitch(b,sr){const n=b.length,mn=Math.floor(sr/1000),mx=Math.floor(sr/70),L=n-mx,r=new Float32Array(mx+2);let best=0;
-    for(let lag=mn;lag<=mx+1;lag++){let s=0,e1=0,e2=0;for(let i=0;i<L;i++){const a=b[i],c=b[i+lag];s+=a*c;e1+=a*a;e2+=c*c}r[lag]=s/Math.sqrt(e1*e2+1e-12);if(r[lag]>best)best=r[lag]}
+    for(let lag=mn;lag<=mx+1;lag++){let s=0,e1=0,e2=0;for(let i=0;i<L;i+=2){const a=b[i],c=b[i+lag];s+=a*c;e1+=a*a;e2+=c*c}r[lag]=s/Math.sqrt(e1*e2+1e-12);if(r[lag]>best)best=r[lag]}
     if(best<.82)return 0;for(let lag=mn+1;lag<=mx;lag++)if(r[lag]>.9*best&&r[lag]>=r[lag-1]&&r[lag]>=r[lag+1]){const a=r[lag-1],c=r[lag+1],d=a-2*r[lag]+c;return sr/(lag+(d?(a-c)/(2*d):0))}return 0}
 
   /* ---------- 5. photo scores ----------

@@ -22,15 +22,22 @@ document.querySelectorAll(".m").forEach(a=>{const e=a.dataset.u+"@"+a.dataset.d;
       f.style.setProperty("--mt",pick([0,4,9,14])+"vh")}
     f._s=rm?0:rd()*.14-.04;f._y=0});
   const b0=parseFloat(R.dataset.bright||(col?.3:.4));
-  function frame(){tick=false;const vh=innerHeight,m=R.scrollHeight-vh,d=Math.min(1,Math.max(0,scrollY/Math.max(1,m)));
-    if(bg&&Math.abs(d-last)>=.004){last=d;R.style.setProperty("--d",d);
-      bg.style.filter=(col?"":"grayscale(1) ")+`brightness(${b0+d*.1}) contrast(${1+d*.9})`}
-    for(const f of figs){const r=f.getBoundingClientRect(),c=r.top+r.height/2-f._y,off=c-vh/2;
-      if(Math.abs(off)>vh*1.6)continue;
-      const y=-off*f._s;f._y=y;f.style.transform=`translateY(${y.toFixed(1)}px)`;
-      const dist=Math.min(1,Math.abs(c+y-vh/2)/(vh*.7));f.style.setProperty("--b",(.3+.7*Math.pow(1-dist,1.3)).toFixed(2))}}
+  /* positions of the photos are measured only on load/resize (page coordinates), so scrolling never forces a re-layout */
+  const scan=document.querySelector(".scan");let H=0,M=1;
+  function measure(){H=innerHeight;M=Math.max(1,R.scrollHeight-H);for(const f of figs){f.style.transform="";f._y=0}
+    for(const f of figs){const r=f.getBoundingClientRect();f._c=r.top+scrollY+r.height/2;f._b=-1}}
+  function frame(){tick=false;const vh=H,sy=scrollY,d=Math.min(1,Math.max(0,sy/M));
+    /* background contrast changes in small steps only – every change repaints the whole background */
+    if(bg&&Math.abs(d-last)>=.02){last=d;if(scan)scan.style.opacity=(d*.5).toFixed(3);
+      bg.style.filter=(col?"":"grayscale(1) ")+`brightness(${(b0+d*.1).toFixed(3)}) contrast(${(1+d*.9).toFixed(3)})`}
+    for(const f of figs){const off=f._c-sy-vh/2;if(Math.abs(off)>vh*1.6)continue;
+      const y=-off*f._s;f.style.transform=`translate3d(0,${y.toFixed(1)}px,0)`;
+      const dist=Math.min(1,Math.abs(off+y)/(vh*.7)),b=Math.round((.3+.7*Math.pow(1-dist,1.3))*20)/20;
+      if(b!==f._b){f._b=b;f.style.setProperty("--b",b)}}}
   addEventListener("scroll",()=>{if(!tick){tick=true;requestAnimationFrame(frame)}},{passive:true});
-  addEventListener("resize",frame);addEventListener("load",frame);frame()})();
+  const re=()=>{measure();last=-1;frame()};addEventListener("resize",re);addEventListener("load",re);
+  document.querySelectorAll(".ph img").forEach(im=>{if(!im.complete)im.addEventListener("load",measure,{once:true})});
+  re();if(document.fonts)document.fonts.ready.then(re)})();
 
 /* scramble on hover (elements with data-r) */
 document.querySelectorAll("[data-r]").forEach(el=>{const o=el.textContent;let t;el.setAttribute("aria-label",o);el.textContent="";
