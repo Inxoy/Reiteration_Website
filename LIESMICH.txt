@@ -7,7 +7,7 @@ AUFBAU
  press/index.html       Presse: Bio kurz/lang (EN/DE, mit Kopier-Knopf), Technical Rider, Pressefotos zum Download (img/press/: press-N.jpg = Ansicht, reiteration-press-N.jpg = Download, plus ZIP)
  photography/index.html        Band- & Livefotografie (Bandname per data-cap)
   hellfire/index.html           Erstes Album "There's a Hellfire beyond the Darkness of your Eyes" (rot/schwarz)
-  rysum/index.html              Rysum-Orgel-Plugin (in Entwicklung; Text + 5 Screenshots)
+  rysum/index.html              Rysum-Orgel-Plugin (in Entwicklung; Text + 12 Screenshots)
   live/index.html               Live Performance: Haltung/Philosophie, vergangene Auftritte, Fotos, Booking
   recommendations/index.html    Empfehlungen (Spiele, Musik, Videos …)
   assets/site.css               Aussehen, für alle Seiten gemeinsam
